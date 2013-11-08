@@ -12,11 +12,11 @@ end
 
 enable :sessions
 
-CALLBACK_URL = "http://localhost:9393/oauth/callback"
+
 
 Instagram.configure do |config|
-  config.client_id = "ba407b509cb74134bff2d9f82365fd4c"
-  config.client_secret = "bb17837cc7b44390ab619b513c59648e"
+  config.client_id = ENV['INSTA_ID']
+  config.client_secret = ENV['INSTA_SECRET']
 end
 
 get "/" do
@@ -24,11 +24,11 @@ get "/" do
 end
 
 get "/oauth/connect" do
-  redirect Instagram.authorize_url(:redirect_uri => CALLBACK_URL)
+  redirect Instagram.authorize_url(:redirect_uri => ENV['CALLBACK_URL'])
 end
 
 get "/oauth/callback" do
-  response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
+  response = Instagram.get_access_token(params[:code], :redirect_uri => ENV['CALLBACK_URL'])
   session[:access_token] = response.access_token
   redirect "/feed"
 end

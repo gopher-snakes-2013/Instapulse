@@ -3,6 +3,7 @@ GEM
   specs:
     awesome_print (1.1.0)
     daemons (1.1.9)
+    dotenv (0.9.0)
     eventmachine (1.0.3)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
@@ -36,6 +37,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  dotenv
   instagram
   shotgun
   sinatra
