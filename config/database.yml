@@ -1,0 +1,16 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: instapulse_development
+  pool: 5
+
+  adapter: postgresql
+  encoding: unicode
+  database: instapulse_test
+  pool: 5
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: instapulse_production
+  pool: 5
