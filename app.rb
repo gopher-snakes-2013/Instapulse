@@ -1,7 +1,13 @@
 require "sinatra"
 require "instagram"
-require "awesome_print"
 require "json"
+
+
+begin
+  require 'dotenv'
+  require "awesome_print"
+  Dotenv.load(".env")
+rescue
 
 enable :sessions
 

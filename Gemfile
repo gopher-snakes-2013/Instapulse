@@ -9,4 +9,5 @@ gem 'thin'
 group :development, :test do
   gem 'shotgun'
   gem 'awesome_print'
+  gem 'dotenv'
 end
