@@ -2,15 +2,10 @@ require "sinatra"
 require "instagram"
 require "json"
 
-begin
+if Sinatra::Application.development?
   require 'dotenv'
   Dotenv.load(".env")
-  rescue
-end
-
-begin
   require "awesome_print"
-  rescue
 end
 
 enable :sessions

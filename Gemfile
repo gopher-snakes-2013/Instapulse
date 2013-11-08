@@ -6,8 +6,12 @@ gem 'sinatra'
 gem 'instagram'
 gem 'thin'
 
-group :development, :test do
+group :development do
   gem 'shotgun'
   gem 'awesome_print'
   gem 'dotenv'
+end
+
+group :test do
+
 end
