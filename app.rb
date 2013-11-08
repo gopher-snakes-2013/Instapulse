@@ -49,23 +49,35 @@ get "/feed" do
   html
 end
 
-
-
-
-
 get "/search" do
   erb :search
 end
 
+# Pulls from the DB
 post "/search" do
-  ap @media = Instagram.media_search("37.768815","-122.439736", {distance: 5000, max_timestamp: 1383288690, min_timestamp: 1383288660})
+  @media = Photo.all
   output = []
 
   @media.each do |photo|
-    lat = photo.location.latitude
-    long = photo.location.longitude
+    lat = photo.latitude
+    long = photo.longitude
     output << [lat,long]
   end
   output.to_json
 end
+
+# Pulls from the API
+
+# post "/search" do
+#   ap @media = Instagram.media_search("37.768815","-122.439736", {distance: 5000, max_timestamp: 1383288690, min_timestamp: 1383288660})
+#   output = []
+
+#   @media.each do |photo|
+#     lat = photo.location.latitude
+#     long = photo.location.longitude
+#     output << [lat,long]
+#   end
+#   output.to_json
+# end
+
 

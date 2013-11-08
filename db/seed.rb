@@ -10,5 +10,5 @@ require './app'
   :like_count => rand(20), 
   :link => 'http://instagram.com/p/gKaFkat0Tj/' , 
   :thumbnail_url => "http://origincache-prn.fbcdn.net/1173089_566382760098534_103778226_s.jpg",
-  :caption => Faker::Lorem.words.map { |word| "#"+word}.join(" ") )
+  :caption => Faker::Lorem.words.map { |word| "#"+word }.join(" ") )
 end
