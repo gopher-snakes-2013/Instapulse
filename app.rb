@@ -33,7 +33,7 @@ get "/feed" do
   html = "<h1>#{user.username}'s recent photos</h1>"
   for media_item in client.user_recent_media
     html << "<img src='#{media_item.images.thumbnail.url}'>"
-  end 
+  end
   html
 end
 
@@ -46,14 +46,14 @@ get "/search" do
 end
 
 post "/search" do
-  ap @media = Instagram.media_search("37.768815","-122.439736", {distance: 5000, max_timestamp: 1383288690, min_timestamp: 1383288660})
+  @media = Instagram.media_search("37.768815","-122.439736", {distance: 5000, max_timestamp: 1383288690, min_timestamp: 1383288660})
   output = []
 
   @media.each do |photo|
     lat = photo.location.latitude
     long = photo.location.longitude
     output << [lat,long]
-  end 
+  end
   output.to_json
 end
 

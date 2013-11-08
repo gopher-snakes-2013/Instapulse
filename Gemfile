@@ -8,5 +8,5 @@ gem 'thin'
 
 group :development, :test do
   gem 'shotgun'
-  gem 'awesome_print'  
+  gem 'awesome_print'
 end
