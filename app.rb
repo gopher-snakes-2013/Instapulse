@@ -1,4 +1,5 @@
 require "sinatra"
+require 'sinatra/activerecord'
 require "instagram"
 require "json"
 
@@ -6,7 +7,13 @@ if Sinatra::Application.development?
   require 'dotenv'
   Dotenv.load(".env")
   require "awesome_print"
+  require "faker"
 end
+
+require_relative './photo'
+
+set :database, 'postgres://localhost/Instapulse' || ENV['DATABASE_URL']
+
 
 enable :sessions
 
@@ -51,7 +58,7 @@ get "/search" do
 end
 
 post "/search" do
-  @media = Instagram.media_search("37.768815","-122.439736", {distance: 5000, max_timestamp: 1383288690, min_timestamp: 1383288660})
+  ap @media = Instagram.media_search("37.768815","-122.439736", {distance: 5000, max_timestamp: 1383288690, min_timestamp: 1383288660})
   output = []
 
   @media.each do |photo|
