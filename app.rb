@@ -5,9 +5,10 @@ require "json"
 
 begin
   require 'dotenv'
-  require "awesome_print"
   Dotenv.load(".env")
-rescue
+  require "awesome_print"
+  rescue
+end
 
 enable :sessions
 
