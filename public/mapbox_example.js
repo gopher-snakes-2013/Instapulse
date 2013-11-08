@@ -1,6 +1,7 @@
 var map = L.mapbox.map('map', 'salarkhan.g7l7ga11')
 .setView([37.769, -122.439], 13);
 
+
 // map.addLayer(L.mapbox.tileLayer('salarkhan.eux9wwmi'))
 // map.addLayer(L.mapbox.tileLayer('salarkhan.g7l7ga11'))
 
@@ -45,11 +46,42 @@ var convertToGeoJSONFormat = function(location){
       description: 'meow',
       // can customize markers by adding simplestyle properties
       // http://mapbox.com/developers/simplestyle/
-      'marker-size': 'small',
-      'marker-color': '#FF530D'
+      // 'marker-size': 'small',
+      // 'marker-color': '#FF530D',
+      // 'marker-symbol': 'heart',
+      icon: {
+        iconUrl: "http://leafletjs.com/docs/images/leaf-green.png",
+        iconSize: [100,100], //icon size
+        iconAnchor: [50,50], //point of icon that corresponds to marker location
+        popupAnchor: [0,-55], //point from which popup should open relative to marker
+        className: "leaflet-marker-icon"
+      }
+      }
     }
   }
-}
+// }
+
+
+// var CustomIcon = L.Icon.extend({
+//   options: {
+//     "iconURL": "http://placekitten.com/100/100",
+//     "iconSize": [100,100], //icon size
+//     "iconAnchor": [50,50], //point of icon that corresponds to marker location
+//     "popupAnchor": [0,-55] //point from which popup should open relative to marker
+//   }
+// })
+
+// var testIcon = new CustomIcon({iconUrl: "http://placekitten.com/100/100" })
+// // L.marker([37.769, -122.439], {icon: testIcon}).addTo(map)
+
+map.markerLayer.on('layeradd', function(e){
+  var marker = e.layer,
+  feature = marker.feature;
+  marker.setIcon(L.icon(feature.properties.icon));
+})
+
+
+
 
 
   $.ready(getInstagram()) 
