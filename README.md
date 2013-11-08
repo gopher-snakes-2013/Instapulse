@@ -4,7 +4,7 @@ Citygram
 DBC Final Project: Instagram Heatmaps
 
 
-Juke, Ryan, Daniel, Salar
+by Juke, Ryan, Daniel, Salar
 
 
 
