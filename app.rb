@@ -2,10 +2,13 @@ require "sinatra"
 require "instagram"
 require "json"
 
-
 begin
   require 'dotenv'
   Dotenv.load(".env")
+  rescue
+end
+
+begin
   require "awesome_print"
   rescue
 end
