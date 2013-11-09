@@ -16,19 +16,27 @@ Map = {
       url: '/',
       type: 'GET',
       dataType: 'json',
-      success: Map.postToMap
+      success: Map.mapController
     })
   },
 
-  postToMap: function(location_JSON) {
+  mapController: function(location_JSON) {
     var locations = location_JSON
     var geoLocations = []
     for(var i=0; i<locations.length; i++){
+
       geoLocations.push(Converter.convertToGeoJSONFormat(locations[i]))
     }
     var map = Map.createMap()
     Map.customizeMarkers(map)
-    map.markerLayer.setGeoJSON(geoLocations);
+
+    var iterator = function (index) {
+      L.mapbox.markerLayer(geoLocations[index]).addTo(map);
+      setTimeout(function(){ if (index < geoLocations.length){
+        iterator(++index)}; 
+      }, 10);
+    };
+    iterator(0);
   },
 
   initialize: function(){
