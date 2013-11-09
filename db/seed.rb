@@ -1,6 +1,5 @@
 require './app'
 
-
 def location_helper(coordinate_type)
   chance = rand(2)+1
   case coordinate_type
@@ -19,7 +18,13 @@ def location_helper(coordinate_type)
   end
 end
 
-100.times do |i|
+def days_length_unix_time(month, day, year)
+  start_time = Time.new(year, month, day).to_i
+  end_time = Time.new(year, month, day+1).to_i
+  return [end_time, start_time]
+end
+
+2000.times do |i|
   photo_attributes = {
     :insta_id => i,
     :latitude => location_helper(:latitude),
