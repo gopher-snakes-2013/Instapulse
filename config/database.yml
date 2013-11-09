@@ -4,6 +4,7 @@ development:
   database: instapulse_development
   pool: 5
 
+test:
   adapter: postgresql
   encoding: unicode
   database: instapulse_test

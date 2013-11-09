@@ -34,4 +34,10 @@ Instapulse::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+    
+  Instagram.configure do |config|
+    config.client_id = ENV["INSTAGRAM_ID"]
+    config.client_secret = ENV["INSTAGRAM_SECRET"]
+  end
+
 end

@@ -64,4 +64,9 @@ Instapulse::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  Instagram.configure do |config|
+    config.client_id = ENV["INSTAGRAM_ID"]
+    config.client_secret = ENV["INSTAGRAM_SECRET"]
+  end
 end
