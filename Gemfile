@@ -1,14 +1,16 @@
 source 'https://rubygems.org'
 
+gem 'pg'
+gem 'instagram'
 gem 'rails', '3.2.14'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'pg'
-gem 'dotenv-rails'
-gem 'instagram'
-gem 'awesome_print'
+group :development do
+	gem 'faker'
+	gem 'dotenv-rails'
+	gem 'awesome_print'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
