@@ -1,32 +1,19 @@
 class MapsController < ApplicationController
 	
-	def index
-		# instagram_media = Instagram.media_search("37.768815","-122.439736", {distance: 5000, max_timestamp: 1383288690, min_timestamp: 1383288660})
-		
-	instagram_media = [ 
-		{
-	   "attribution" => nil,
-	          "tags" => [],
-	      "location" => {
-	     "latitude"  => 37.793761667,
-	    "longitude"  => -122.402016667
-	    }
-	  }
-	]
+	
 
-	output = []
+def index
+	media = Photo.all
+	output =  Photo.grab_lat_longs(media)
 
-	instagram_media.each do |photo|
-		lat = photo.location.latitude
-		long = photo.location.longitude
-		output << [lat,long]
+	respond_to do	|format|
+		format.html
+		format.json { render :json => output.to_json  }
 	end
 
-		render :json => output
+		# Uncomment if want to see file with JSON
+		# File.open("test.json", "w") do |f|
+		# 	f.write(output.to_json)
+		# end
 	end
-
 end
-
-
-
-
