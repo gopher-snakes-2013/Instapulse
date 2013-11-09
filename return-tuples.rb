@@ -10,3 +10,9 @@ def return_time_tuples(start_time, end_time)
   return time_tuples
 end
 
+describe "TUPLEZZZ" do
+  it "should return 2880 tuples with intervals of 30 seconds" do
+    time_tuples = return_time_tuples(0,30)
+    time_tuples[1].should eq [30,60]
+  end
+end
