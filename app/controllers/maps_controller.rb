@@ -1,9 +1,8 @@
 class MapsController < ApplicationController
 	
-	
-
 def index
-	media = Photo.all
+	# media = Photo.all
+	media 
 	output =  Photo.grab_lat_longs(media)
 
 	respond_to do	|format|
