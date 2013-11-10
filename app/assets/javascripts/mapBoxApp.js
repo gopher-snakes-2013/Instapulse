@@ -1,14 +1,7 @@
-Map = {
+MapBuilder = {
   createMap: function(){
-    return L.mapbox.map('map', 'salarkhan.Instapulse').setView([37.769, -122.439],13)
-  },
-
-  customizeMarkers: function(map){
-    map.markerLayer.on('layeradd', function(e){
-      var marker = e.layer,
-      feature = marker.feature;
-      marker.setIcon(L.icon(feature.properties.icon));
-    })
+    return L.mapbox.map('map', 'salarkhan.g7l7ga11')
+        .setView([37.769, -122.439],13)
   },
 
   getInstagram: function(){
@@ -16,23 +9,32 @@ Map = {
       url: '/',
       type: 'GET',
       dataType: 'json',
-      success: Map.postToMap
+      success: MapBuilder.mapController
     })
   },
 
-  postToMap: function(location_JSON) {
+  mapController: function(location_JSON) {
     var locations = location_JSON
     var geoLocations = []
     for(var i=0; i<locations.length; i++){
+
       geoLocations.push(Converter.convertToGeoJSONFormat(locations[i]))
     }
-    var map = Map.createMap()
-    Map.customizeMarkers(map)
-    map.markerLayer.setGeoJSON(geoLocations);
+    MapBuilder.map = MapBuilder.createMap()
+    MapBuilder.geoLocations = geoLocations
+    MapBuilder.addMarkerIncrementally(0)
+  },
+
+  addMarkerIncrementally: function (index) {
+    L.mapbox.markerLayer(MapBuilder.geoLocations[index]).addTo(MapBuilder.map)
+    var that = this
+    setTimeout(function(){ if (index < MapBuilder.geoLocations.length){
+      that.addMarkerIncrementally(++index)}
+      }, 1)
   },
 
   initialize: function(){
-    Map.getInstagram() 
+    MapBuilder.getInstagram() 
   }
 }
 
@@ -58,7 +60,6 @@ Converter = {
   }
 }
 
-
 $(document).ready(function(){
-  Map.initialize()
+  MapBuilder.initialize()
 })
