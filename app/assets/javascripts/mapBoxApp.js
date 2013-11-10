@@ -4,14 +4,6 @@ MapBuilder = {
         .setView([37.769, -122.439],13)
   },
 
-  customizeMarkers: function(){
-    MapBuilder.map.markerLayer.on('layeradd', function(e){
-      var marker = e.layer,
-      feature = marker.feature;
-      marker.setIcon(L.icon(feature.properties.icon));
-    })
-  },
-
   getInstagram: function(){
     $.ajax({
       url: '/',
@@ -29,7 +21,6 @@ MapBuilder = {
       geoLocations.push(Converter.convertToGeoJSONFormat(locations[i]))
     }
     MapBuilder.map = MapBuilder.createMap()
-    MapBuilder.customizeMarkers(MapBuilder.map)
     MapBuilder.geoLocations = geoLocations
     MapBuilder.addMarkerIncrementally(0)
   },
