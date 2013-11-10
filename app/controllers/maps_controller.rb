@@ -3,9 +3,8 @@ class MapsController < ApplicationController
 	
 
 def index
-	media = Photo.all
+	media = Photo.order(:created_time)
 	output =  Photo.grab_lat_longs(media)
-
 	respond_to do	|format|
 		format.html
 		format.json { render :json => output.to_json  }
