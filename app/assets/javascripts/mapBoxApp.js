@@ -26,14 +26,13 @@ MapBuilder = {
   },
 
   addMarkerIncrementally: function (index) {
-    L.mapbox.markerLayer(MapBuilder.geoLocations[index]).addTo(MapBuilder.map);
+    L.mapbox.markerLayer(MapBuilder.geoLocations[index]).addTo(MapBuilder.map)
     var that = this
     setTimeout(function(){ if (index < MapBuilder.geoLocations.length){
       that.addMarkerIncrementally(++index)}
       }, 1)
   },
 
- 
   initialize: function(){
     MapBuilder.getInstagram() 
   }
@@ -60,7 +59,6 @@ Converter = {
     }
   }
 }
-
 
 $(document).ready(function(){
   MapBuilder.initialize()
