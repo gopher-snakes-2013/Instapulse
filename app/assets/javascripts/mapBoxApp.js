@@ -1,6 +1,6 @@
 Map = {
   createMap: function(){
-    return L.mapbox.map('map', 'salarkhan.g7l7ga11').setView([37.769, -122.439],13)
+    return L.mapbox.map('map', 'salarkhan.Instapulse').setView([37.769, -122.439],13)
   },
 
   customizeMarkers: function(map){

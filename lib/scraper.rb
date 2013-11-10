@@ -35,7 +35,6 @@ module Scraper
 
   def self.parseIGdata(instagram_json)
     ig_photo_info = {}
-    # data_from_json = instagram_json["data"]
 
     ig_photo_info[:insta_id] = instagram_json["id"]
     ig_photo_info[:latitude] = instagram_json["location"]["latitude"]
