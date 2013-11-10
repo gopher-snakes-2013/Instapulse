@@ -1,10 +1,13 @@
 Map = {
   createMap: function(){
-    return L.mapbox.map('map', 'salarkhan.g7l7ga11').setView([37.769, -122.439],13)
+    return L.mapbox.map('map', 'salarkhan.g7l7ga11')
+        .setView([37.769, -122.439],13)
+        // .LatLngBounds(new L.LatLng(37.6493,-122.5492),new L.LatLng(37.8323,-122.3086);
+        // .fitBounds([37.6493,-122.5492],[37.8323,-122.3086]);
   },
 
-  customizeMarkers: function(map){
-    map.markerLayer.on('layeradd', function(e){
+  customizeMarkers: function(){
+    Map.map.markerLayer.on('layeradd', function(e){
       var marker = e.layer,
       feature = marker.feature;
       marker.setIcon(L.icon(feature.properties.icon));
@@ -27,18 +30,22 @@ Map = {
 
       geoLocations.push(Converter.convertToGeoJSONFormat(locations[i]))
     }
-    var map = Map.createMap()
-    Map.customizeMarkers(map)
-
-    var iterator = function (index) {
-      L.mapbox.markerLayer(geoLocations[index]).addTo(map);
-      setTimeout(function(){ if (index < geoLocations.length){
-        iterator(++index)}; 
-      }, 10);
-    };
-    iterator(0);
+    Map.map = Map.createMap()
+    Map.customizeMarkers(Map.map)
+    Map.geoLocations = geoLocations
+    Map.addMarkerIncrementally(0)
   },
 
+  addMarkerIncrementally: function (index) {
+    L.mapbox.markerLayer(Map.geoLocations[index]).addTo(Map.map);
+    var that = this
+
+    setTimeout(function(){ if (index < Map.geoLocations.length){
+      that.addMarkerIncrementally(++index)}
+      }, 1)
+  },
+
+ 
   initialize: function(){
     Map.getInstagram() 
   }
