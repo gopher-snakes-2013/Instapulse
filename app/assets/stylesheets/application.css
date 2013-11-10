@@ -25,7 +25,8 @@
 
  #tooltip {
   position: absolute;
-  background-color: white;
+  background-color: #ecf0f1;
+  border: 2px solid #bdc3c7;
   z-index: 999;
   box-shadow: 5px 5px 15px #333;
   bottom: 50px;
