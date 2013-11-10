@@ -1,14 +1,7 @@
-Map = {
+MapBuilder = {
   createMap: function(){
-    return L.mapbox.map('map','salarkhan.g7l7ga11' ).setView([37.769, -122.439],13)
-  },
-
-  customizeMarkers: function(map){
-    map.markerLayer.on('layeradd', function(e){
-      var marker = e.layer,
-      feature = marker.feature;
-      marker.setIcon(L.icon(feature.properties.icon));
-    })
+    return L.mapbox.map('map', 'salarkhan.g7l7ga11')
+        .setView([37.769, -122.439],13)
   },
 
   getInstagram: function(){
@@ -16,39 +9,53 @@ Map = {
       url: '/',
       type: 'GET',
       dataType: 'json',
-      success: Map.postToMap
+      success: MapBuilder.mapController
     })
   },
 
-  postToMap: function(media_JSON) {
-    var media = media_JSON
-    var mediaCollection = []
-    for(var i=0; i<media.length; i++){
-      mediaCollection.push(Converter.convertToGeoJSONFormat(media[i]))
-    }
-    var map = Map.createMap()
-    Map.customizeMarkers(map)
-    map.markerLayer.setGeoJSON(mediaCollection);
-    map.markerLayer.on('mouseover', function(e) {
+  tooltipModifier: function() {
+
+   MapBuilder.blueMarkerLayer.on('mouseover', function(e) {
         e.layer.unbindPopup();
         var feature = e.layer.feature;
-        var info = '<h1>' + feature.properties.title + '</h1>' +
+        var info = '<p>' + feature.properties.title + '</p>' +
                    '<p>' + feature.properties.description + '</p>';
 
-        document.getElementById('tooltip').innerHTML = info;
-      $( "#tooltip" ).fadeIn( 300, function() {
-        document.getElementById('tooltip').className = ''
+        
+      $("#tooltip" ).html(info)
+      $("#tooltip" ).fadeIn( 300, function() {
+      $('#tooltip').removeClass('hidden')
+        });
       });
-      });
-    map.markerLayer.on('mouseout', function(e) {
+
+    MapBuilder.blueMarkerLayer.on('mouseout', function(e) {
       $('#tooltip').fadeOut(300)
-      // e.layer.closePopup();
-      // document.getElementById('tooltip').className = 'hidden'
-});
+      e.layer.closePopup();
+      $('#tooltip').addClass('hidden')
+    });
+  },
+
+  mapController: function(media_collection) {
+    var geoJsonCollection = []
+    for(var i=0; i<media_collection.length; i++){
+      geoJsonCollection.push(Converter.convertToGeoJSONFormat(media_collection[i]))
+    }
+    MapBuilder.map = MapBuilder.createMap()
+    MapBuilder.geoJsonCollection = geoJsonCollection
+    MapBuilder.addMarkerIncrementally(0)
+  },
+
+  addMarkerIncrementally: function (index) {
+    MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(MapBuilder.geoJsonCollection[index]).addTo(MapBuilder.map)
+    var that = this
+    setTimeout(function(){ if (index < MapBuilder.geoJsonCollection.length){
+      that.addMarkerIncrementally(++index)}
+      }, 300)
+    MapBuilder.tooltipModifier() 
   },
 
   initialize: function(){
-    Map.getInstagram() 
+    MapBuilder.getInstagram() 
   }
 }
 
@@ -74,7 +81,6 @@ Converter = {
   }
 }
 
-
 $(document).ready(function(){
-  Map.initialize()
+  MapBuilder.initialize()
 })

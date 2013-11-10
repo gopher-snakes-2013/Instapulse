@@ -38,3 +38,12 @@
  .hidden {
   display: none;
  }
+
+ .leaflet-marker-icon {
+ 	content:url("http://imgur.com/hZE9VrA.png");
+ }
+
+ .leaflet-marker-icon[style]{
+ 	 	width:5px !important;
+ 		height:5px !important;
+ }
