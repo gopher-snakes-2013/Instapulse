@@ -4,9 +4,7 @@ module Scraper
     number_of_intervals = (end_time - start_time)/30
     time_tuples = []
     number_of_intervals.times do
-      time_tuples << [start_time, end_time]
-      start_time += 30
-      end_time += 30
+      time_tuples << [start_time, start_time += 30]
     end
     return time_tuples
   end
@@ -20,8 +18,6 @@ module Scraper
     end
     return collection_of_json_arrays
   end
-
-
 
   def self.separate_json(collection_of_json_arrays)
     group_of_pictures = []
