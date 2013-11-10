@@ -6,10 +6,10 @@ class MapsController < ApplicationController
   def index
   # ap Instagram.media_search("37.768815","-122.439736", {distance: 5000, max_timestamp: 1383202890, min_timestamp: 1383202800}) 1383278400 1383282000
 
-    array_of_time_windows = Scraper.return_time_tuples(1383202800, 1383202890)
-    collection_of_json_arrays = Scraper.instagram_api_call(array_of_time_windows)
-    group_of_pictures = Scraper.separate_json(collection_of_json_arrays)
-    Scraper.write_to_DB(group_of_pictures)
+    # array_of_time_windows = Scraper.return_time_tuples(1383278400, 1383282000)
+    # collection_of_json_arrays = Scraper.instagram_api_call(array_of_time_windows)
+    # group_of_pictures = Scraper.separate_json(collection_of_json_arrays)
+    # Scraper.write_to_DB(group_of_pictures)
 
 
 

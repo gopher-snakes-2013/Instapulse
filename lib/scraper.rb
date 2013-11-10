@@ -22,12 +22,12 @@ module Scraper
   end
 
 
-  
+
   def self.separate_json(collection_of_json_arrays)
     group_of_pictures = []
     collection_of_json_arrays.each do |collection_of_jsons|
       collection_of_jsons.each do |picture_info|
-        group_of_pictures << Scraper.parseIGdata(picture_info) unless picture_info.nil? 
+        group_of_pictures << Scraper.parseIGdata(picture_info) unless picture_info.nil?
       end
     end
     return group_of_pictures
@@ -39,12 +39,12 @@ module Scraper
     ig_photo_info[:insta_id] = instagram_json["id"]
     ig_photo_info[:latitude] = instagram_json["location"]["latitude"]
     ig_photo_info[:longitude] = instagram_json["location"]["longitude"]
-    ig_photo_info[:location_name] = instagram_json["location"]["name"]
+    ig_photo_info[:location_name] = instagram_json["location"]["name"] unless instagram_json["location"]["name"].nil?
     ig_photo_info[:created_time] = instagram_json["created_time"]
     ig_photo_info[:like_count] = instagram_json["likes"]["count"]
-    ig_photo_info[:link] = instagram_json["link"]
-    ig_photo_info[:thumbnail_url] = instagram_json["images"]["thumbnail"]["url"]
-    ig_photo_info[:caption] = instagram_json["caption"]["text"]
+    ig_photo_info[:link] = instagram_json["link"] unless instagram_json["link"].nil?
+    ig_photo_info[:thumbnail_url] = instagram_json["images"]["thumbnail"]["url"] unless instagram_json["images"]["thumbnail"]["url"].nil?
+    ig_photo_info[:caption] = instagram_json["caption"]["text"] unless instagram_json["caption"].nil?
 
     return ig_photo_info
   end

@@ -9,7 +9,7 @@ class CreatePhotos < ActiveRecord::Migration
       t.integer :like_count
       t.string :link
       t.string :thumbnail_url
-      t.string :caption
+      t.text :caption
     end
   end
 
