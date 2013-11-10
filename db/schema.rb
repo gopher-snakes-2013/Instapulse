@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20131109003158) do
     t.integer "like_count"
     t.string  "link"
     t.string  "thumbnail_url"
-    t.text    "caption"
+    t.string  "caption"
   end
 
 end
