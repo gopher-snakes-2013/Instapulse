@@ -1,7 +1,6 @@
 MapBuilder = {
   createMap: function(){
-    return L.mapbox.map('map', 'salarkhan.g7l7ga11')
-        .setView([37.769, -122.439],13)
+    return L.mapbox.map('map', 'salarkhan.g7l7ga11').setView([37.769, -122.439],13)
   },
 
   getInstagram: function(){
@@ -34,7 +33,7 @@ MapBuilder = {
   },
 
   initialize: function(){
-    MapBuilder.getInstagram() 
+    MapBuilder.getInstagram()
   }
 }
 
