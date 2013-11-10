@@ -1,7 +1,7 @@
 class CreatePhotos < ActiveRecord::Migration
   def up
     create_table :photos do |t|
-      t.integer :insta_id
+      t.string :insta_id
       t.float :latitude
       t.float :longitude
       t.string :location_name

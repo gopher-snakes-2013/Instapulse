@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20131109003158) do
 
   create_table "photos", :force => true do |t|
-    t.integer "insta_id"
+    t.string  "insta_id"
     t.float   "latitude"
     t.float   "longitude"
     t.string  "location_name"

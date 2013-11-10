@@ -36,8 +36,8 @@ Instapulse::Application.configure do
   config.assets.debug = true
     
   Instagram.configure do |config|
-    config.client_id = ENV["INSTAGRAM_ID"]
-    config.client_secret = ENV["INSTAGRAM_SECRET"]
+    config.client_id = ENV["INSTA_ID"]
+    config.client_secret = ENV["INSTA_SECRET"]
   end
 
 end

@@ -10,6 +10,8 @@ group :development do
 	gem 'faker'
 	gem 'dotenv-rails'
 	gem 'awesome_print'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Gems used only for assets and not required
