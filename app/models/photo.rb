@@ -3,12 +3,13 @@ class Photo < ActiveRecord::Base
 
 	validates :insta_id, uniqueness: true 
 
-	def self.grab_lat_longs(media)
+	def self.grab_media_info(media)
 		output = []
 		media.each do |photo|
 			lat = photo.latitude
 			long = photo.longitude
-			output << [lat,long]
+			thumbnail_url = photo.thumbnail_url
+			output << [lat,long, thumbnail_url]
 		end
 		output
 	end

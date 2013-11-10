@@ -1,6 +1,6 @@
 Map = {
   createMap: function(){
-    return L.mapbox.map('map', 'salarkhan.Instapulse').setView([37.769, -122.439],13)
+    return L.mapbox.map('map','salarkhan.g7l7ga11' ).setView([37.769, -122.439],13)
   },
 
   customizeMarkers: function(map){
@@ -20,15 +20,31 @@ Map = {
     })
   },
 
-  postToMap: function(location_JSON) {
-    var locations = location_JSON
-    var geoLocations = []
-    for(var i=0; i<locations.length; i++){
-      geoLocations.push(Converter.convertToGeoJSONFormat(locations[i]))
+  postToMap: function(media_JSON) {
+    var media = media_JSON
+    var mediaCollection = []
+    for(var i=0; i<media.length; i++){
+      mediaCollection.push(Converter.convertToGeoJSONFormat(media[i]))
     }
     var map = Map.createMap()
     Map.customizeMarkers(map)
-    map.markerLayer.setGeoJSON(geoLocations);
+    map.markerLayer.setGeoJSON(mediaCollection);
+    map.markerLayer.on('mouseover', function(e) {
+        e.layer.unbindPopup();
+        var feature = e.layer.feature;
+        var info = '<h1>' + feature.properties.title + '</h1>' +
+                   '<p>' + feature.properties.description + '</p>';
+
+        document.getElementById('tooltip').innerHTML = info;
+      $( "#tooltip" ).fadeIn( 300, function() {
+        document.getElementById('tooltip').className = ''
+      });
+      });
+    map.markerLayer.on('mouseout', function(e) {
+      $('#tooltip').fadeOut(300)
+      // e.layer.closePopup();
+      // document.getElementById('tooltip').className = 'hidden'
+});
   },
 
   initialize: function(){
@@ -38,20 +54,20 @@ Map = {
 
 Converter = {
     //should this be done in ruby land instead to minimize number of format conversions
-    convertToGeoJSONFormat: function(location){
+    convertToGeoJSONFormat: function(media){
       return {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [location[1],location[0]]
+          coordinates: [media[1],media[0]]
         },
         properties: {
-         title: "I'M A MARKER, BITCH",
-         description: 'meow',
+          title: "Salar sucks",
+         description: '<img src=' + media[2] + '>',
          icon: {
           iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6], //icon size
-          iconAnchor: [0,0] //point of icon that corresponds to marker location
+          iconAnchor: [10,10] //point of icon that corresponds to marker location
         }
       }
     }

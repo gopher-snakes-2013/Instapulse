@@ -22,3 +22,18 @@
  	bottom:0; 
  	width:100%; 
  }
+
+ #tooltip {
+  position: absolute;
+  background-color: white;
+  z-index: 999;
+  box-shadow: 5px 5px 15px #333;
+  bottom: 50px;
+  right: 50px;
+  height: 200px;
+  width: 200px;
+ }
+
+ .hidden {
+  display: none;
+ }
