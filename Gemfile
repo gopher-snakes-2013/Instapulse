@@ -16,6 +16,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'jasmine'
 end
 
 # Gems used only for assets and not required

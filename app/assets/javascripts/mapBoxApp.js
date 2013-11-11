@@ -30,32 +30,32 @@ Converter = {
   },
 
   getInsideTuple: function(individualTuple){
-    var objectSet = []
+    var photoSet = []
     for(objects=0; objects<individualTuple.length; objects++){
-      objectSet.push(Converter.getObject(individualTuple[objects]))
+      photoSet.push(Converter.getObject(individualTuple[objects]))
     }
-    return objectSet
+    return photoSet
   },
 
-  getObject: function(objectSet){
+  getPhoto: function(photoSet){
     var arrayOfGeoJSONs = []
-    for(object=0; object<objectSet.length; object++){
-      arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(objectSet[object]))
+    for(object=0; object<photoSet.length; object++){
+      arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(photoSet[object]))
     }
     return arrayOfGeoJSONs
   },
 
-  toGeoJSONFormat: function(media){
-    if(media){
+  toGeoJSONFormat: function(photo){
+    if(photo){
       return {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [media.long,media.lat]
+          coordinates: [photo.longitude, photo.latitude]
         },
         properties: {
           title: "Salar sucks",
-          description: '<img src=' + media.thumbnail_url + '>',
+          description: '<img src=' + photo.thumbnail_url + '>',
           icon: {
             iconUrl: "http://imgur.com/hZE9VrA.png",
             iconSize: [6,6],
