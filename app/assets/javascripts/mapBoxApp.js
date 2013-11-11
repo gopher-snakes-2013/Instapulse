@@ -1,17 +1,29 @@
+$(document).ready(function(){
+  MapBuilder.map = MapBuilder.createMap()
+  TimeSelector.initialize()
+})
+
+TimeSelector = {
+  initialize: function(){
+    $('#time_form').on('submit', function(e){
+      e.preventDefault()
+      $.ajax({
+        url:"/maps",
+        type: "GET",
+        dataType: "json",
+        data: $('#time_form').serialize()
+      }).done(function(server_data){
+        MapBuilder.mapController(server_data)
+      })
+    })
+  }
+}
+
 MapBuilder = {
-  
+
   createMap: function(){
     return L.mapbox.map('map', 'salarkhan.g7l7ga11')
     .setView([37.769, -122.439],13)
-  },
-
-  getInstagram: function(){
-    $.ajax({
-      url: '/',
-      type: 'GET',
-      dataType: 'json',
-      success: MapBuilder.mapController
-    })
   },
 
   mapController: function(media_collection) {
@@ -19,7 +31,6 @@ MapBuilder = {
     for(var i=0; i<media_collection.length; i++){
       geoJsonCollection.push(Converter.toGeoJSONFormat(media_collection[i]))
     }
-    MapBuilder.map = MapBuilder.createMap()
     MapBuilder.geoJsonCollection = geoJsonCollection
     MapBuilder.addMarkerIncrementally(0)
   },
@@ -29,12 +40,8 @@ MapBuilder = {
     var that = this
     setTimeout(function(){ if (index < MapBuilder.geoJsonCollection.length){
       that.addMarkerIncrementally(++index)}
-    }, 300)
+    }, 1)
     toolTipModifier.handleToolTips()
-  },
-
-  initialize: function(){
-    MapBuilder.getInstagram()
   }
 }
 
@@ -65,14 +72,14 @@ toolTipModifier = {
 
   hideToolTip: function(){
     MapBuilder.blueMarkerLayer.on('mouseout', function(e) {
-      $('#tooltip').fadeOut(300, function(){ 
+      $('#tooltip').fadeOut(300, function(){
       e.layer.closePopup();
       $('#tooltip').addClass('hidden')
       })
     });
   }
 },
- 
+
 Converter = {
     //should this be done in ruby land instead to minimize number of format conversions
     toGeoJSONFormat: function(media){
@@ -95,6 +102,3 @@ Converter = {
   }
 }
 
-$(document).ready(function(){
-  MapBuilder.initialize()
-})
