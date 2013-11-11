@@ -39,8 +39,8 @@ Converter = {
 
   getPhoto: function(photoSet){
     var arrayOfGeoJSONs = []
-    for(object=0; object<photoSet.length; object++){
-      arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(photoSet[object]))
+    for(var i=0; i<photoSet.length; i++){
+      arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(photoSet[i]))
     }
     return arrayOfGeoJSONs
   },
