@@ -81,18 +81,21 @@ MapBuilder = {
 
   mapController: function(arrayOfJSONTuples){
       var myArray = [
-      [{a: 1}, {b:1}],
-      [{a: 2}, {b:2}]
+      [
+      [{a: 0}, {b:1}],
+      [{c: 0}, {d:1}],
+      [],
+      [{e: 0}]
+      ]
     ]
 
     var arrayOfGeoJSONTuples = Converter.seperateTuples(arrayOfJSONTuples)
     var counter = 0
-    var intervalOutside = setInterval(function(){
+    var arrayInterval = setInterval(function(){
       if(counter === myArray.length){
-        clearInterval(intervalOutside)
+        clearInterval(arrayInterval)
       } else {
         MapBuilder.addMarkersToLayer(myArray[counter])
-        console.log(myArray[counter])
         counter++;
       }
     }, 100)
@@ -104,11 +107,11 @@ MapBuilder = {
 
   addMarkersToLayer: function(photoObjects){
     var counter = 0
-    var intervalId = setInterval(function(){
+    var tupleInterval = setInterval(function(){
       if(counter === photoObjects.length) {
-        clearInterval(intervalId);
+        clearInterval(tupleInterval);
       } else {
-        // console.log(photoObjects[counter])
+        console.log("photoObjects[counter]", photoObjects[counter])
         MapBuilder.decideWhetherToPost(photoObjects[counter])
         counter++
       }
@@ -116,8 +119,18 @@ MapBuilder = {
   },
 
   decideWhetherToPost: function(photoObjectArray){
-    if(photoObjectArray.length > 0){
-        console.log("derp",photoObjectArray)
+    // if(photoObjectArray.length > 0){
+      var counter = 0
+      var objectInterval = setInterval(function(){
+        if(counter === photoObjectArray.length){
+          // console.log("gurl im empty")
+          clearInterval(objectInterval)
+        }
+        else {
+          console.log("This is what we have in else -->",photoObjectArray[counter])
+          counter++
+        }
+      }, 25)
     }
   }
 
@@ -140,7 +153,7 @@ MapBuilder = {
   //   MapBuilder.addMarkerIncrementally(0)
   // },
 
-}
+
 
 toolTipModifier = {
 
