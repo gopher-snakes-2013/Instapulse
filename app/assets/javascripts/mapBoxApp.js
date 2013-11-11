@@ -23,7 +23,7 @@ TimeSelector = {
 Converter = {
   seperateTuples: function(arrayOfJSONTuples){
     var collectionOfGeoJSONTuples = []
-    for(tuple=0; tuple<arrayOfJSONTuples.length; tuple++){
+    for(var tuple=0; tuple<arrayOfJSONTuples.length; tuple++){
       collectionOfGeoJSONTuples.push(Converter.getInsideTuple(arrayOfJSONTuples[tuple]))
     }
     return collectionOfGeoJSONTuples
@@ -31,7 +31,7 @@ Converter = {
 
   getInsideTuple: function(individualTuple){
     var objectSet = []
-    for(objects=0; objects<individualTuple.length; objects++){
+    for(var objects=0; objects<individualTuple.length; objects++){
       objectSet.push(Converter.getObject(individualTuple[objects]))
     }
     return objectSet
@@ -39,7 +39,7 @@ Converter = {
 
   getObject: function(objectSet){
     var arrayOfGeoJSONs = []
-    for(object=0; object<objectSet.length; object++){
+    for(var object=0; object<objectSet.length; object++){
       arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(objectSet[object]))
     }
     return arrayOfGeoJSONs
@@ -51,15 +51,16 @@ Converter = {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [media.long,media.lat]
+          coordinates: [media.longitude,media.latitude]
         },
         properties: {
           title: "Salar sucks",
           description: '<img src=' + media.thumbnail_url + '>',
           icon: {
             iconUrl: "http://imgur.com/hZE9VrA.png",
-            iconSize: [6,6],
-            iconAnchor: [10,10]
+            iconSize: [10,10],
+            iconAnchor: [50,50],
+            popupAnchor: [0,-25]
           }
         }
       }
@@ -68,6 +69,10 @@ Converter = {
 }
 
 MapBuilder = {
+    // var myArray = [
+    //   [{a: 1}, {b:1}],
+    //   [{a: 2}, {b:2}]
+    // ]
 
   createMap: function(){
     return L.mapbox.map('map', 'salarkhan.g7l7ga11')
@@ -75,14 +80,22 @@ MapBuilder = {
   },
 
   mapController: function(arrayOfJSONTuples){
+      var myArray = [
+      [{a: 1}, {b:1}],
+      [{a: 2}, {b:2}]
+    ]
+
     var arrayOfGeoJSONTuples = Converter.seperateTuples(arrayOfJSONTuples)
-    // console.log(arrayOfGeoJSONTuples[0])
-    for(i=0; i<arrayOfJSONTuples.length; i++){
-      console.log(arrayOfGeoJSONTuples[i][0])
-      console.log(arrayOfGeoJSONTuples[i][1])
-      // MapBuilder.createGeoJSONLayer(arrayOfGeoJSONTuples[i][0])
-      // MapBuilder.addMarkersToLayer(arrayOfGeoJSONTuples[i][1])
-    }
+    var counter = 0
+    var intervalOutside = setInterval(function(){
+      if(counter === myArray.length){
+        clearInterval(intervalOutside)
+      } else {
+        MapBuilder.addMarkersToLayer(myArray[counter])
+        console.log(myArray[counter])
+        counter++;
+      }
+    }, 100)
   },
 
   createGeoJSONLayer: function(geoJSON){
@@ -90,10 +103,33 @@ MapBuilder = {
   },
 
   addMarkersToLayer: function(photoObjects){
-    for(i=0; i<photoObjects.length; i++){
-      MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(photoObjects[i]).addTo(MapBuilder.map)
+    var counter = 0
+    var intervalId = setInterval(function(){
+      if(counter === photoObjects.length) {
+        clearInterval(intervalId);
+      } else {
+        // console.log(photoObjects[counter])
+        MapBuilder.decideWhetherToPost(photoObjects[counter])
+        counter++
+      }
+    }, 50)
+  },
+
+  decideWhetherToPost: function(photoObjectArray){
+    if(photoObjectArray.length > 0){
+        console.log("derp",photoObjectArray)
     }
   }
+
+  // addMarkerIncrementally: function(index) {
+  //   MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(MapBuilder.photoObjects[index]).addTo(MapBuilder.map)
+  //   var that = this
+  //   setTimeout(function(){ if (index < MapBuilder.photoObjects.length){
+  //     that.addMarkerIncrementally(++index)}
+  //   }, 100)
+  //   toolTipModifier.handleToolTips()
+  // }
+
 
   // mapController: function(media_collection) {
   //   var geoJsonCollection = []
@@ -104,14 +140,6 @@ MapBuilder = {
   //   MapBuilder.addMarkerIncrementally(0)
   // },
 
-  // addMarkerIncrementally: function (index) {
-  //   MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(MapBuilder.geoJsonCollection[index]).addTo(MapBuilder.map)
-  //   var that = this
-  //   setTimeout(function(){ if (index < MapBuilder.geoJsonCollection.length){
-  //     that.addMarkerIncrementally(++index)}
-  //   }, 1)
-  //   toolTipModifier.handleToolTips()
-  // }
 }
 
 toolTipModifier = {

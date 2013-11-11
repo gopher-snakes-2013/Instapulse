@@ -7,8 +7,8 @@ class Photo < ActiveRecord::Base
 		output = []
 		media.each do |photo|
 			photo_object = {}
-			photo_object["lat"] = photo.latitude
-			photo_object["long"] = photo.longitude
+			photo_object["latitude"] = photo.latitude
+			photo_object["longitude"] = photo.longitude
 			photo_object["thumbnail_url"] = photo.thumbnail_url
 			output << photo_object
 		end
