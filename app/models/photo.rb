@@ -37,3 +37,6 @@ class Photo < ActiveRecord::Base
 		output
 	end
 end
+
+
+ #test call for console:  x = Photo.create_tuples(1383291500, 1383291800, 60)
