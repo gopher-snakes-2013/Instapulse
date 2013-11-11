@@ -15,7 +15,11 @@ class Photo < ActiveRecord::Base
 		output
 	end
 
-	def self.create_tuples(start_time, end_time, interval)
+	def self.create_tuples(params)
+		start_time = params[:start_time]
+		end_time = params[:end_time]
+		interval = params[:interval]
+
 		time_keeper = start_time
 		batch_time = interval / 2
 		iterate = true
