@@ -34,7 +34,7 @@ MapBuilder = {
   },
 
   initialize: function(){
-    MapBuilder.getInstagram() 
+    MapBuilder.getInstagram()
   }
 }
 
