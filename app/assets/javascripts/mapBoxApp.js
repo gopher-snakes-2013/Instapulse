@@ -1,6 +1,8 @@
 MapBuilder = {
+  
   createMap: function(){
-    return L.mapbox.map('map', 'salarkhan.g7l7ga11').setView([37.769, -122.439],13)
+    return L.mapbox.map('map', 'salarkhan.g7l7ga11')
+    .setView([37.769, -122.439],13)
   },
 
   getInstagram: function(){
@@ -12,24 +14,23 @@ MapBuilder = {
     })
   },
 
-  mapController: function(location_JSON) {
-    var locations = location_JSON
-    var geoLocations = []
-    for(var i=0; i<locations.length; i++){
-
-      geoLocations.push(Converter.convertToGeoJSONFormat(locations[i]))
+  mapController: function(media_collection) {
+    var geoJsonCollection = []
+    for(var i=0; i<media_collection.length; i++){
+      geoJsonCollection.push(Converter.toGeoJSONFormat(media_collection[i]))
     }
     MapBuilder.map = MapBuilder.createMap()
-    MapBuilder.geoLocations = geoLocations
+    MapBuilder.geoJsonCollection = geoJsonCollection
     MapBuilder.addMarkerIncrementally(0)
   },
 
   addMarkerIncrementally: function (index) {
-    L.mapbox.markerLayer(MapBuilder.geoLocations[index]).addTo(MapBuilder.map)
+    MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(MapBuilder.geoJsonCollection[index]).addTo(MapBuilder.map)
     var that = this
-    setTimeout(function(){ if (index < MapBuilder.geoLocations.length){
+    setTimeout(function(){ if (index < MapBuilder.geoJsonCollection.length){
       that.addMarkerIncrementally(++index)}
-      }, 1)
+    }, 300)
+    toolTipModifier.handleToolTips()
   },
 
   initialize: function(){
@@ -37,22 +38,57 @@ MapBuilder = {
   }
 }
 
+toolTipModifier = {
+
+  handleToolTips: function(){
+    var self = this
+    MapBuilder.blueMarkerLayer.on('mouseover', function(e) {
+      self.editToolTip(e)
+      self.showToolTip()
+    })
+    self.hideToolTip()
+  },
+
+  editToolTip: function(e){
+    e.layer.unbindPopup();
+    toolTipModifier.feature = e.layer.feature;
+    toolTipModifier.info = '<p>' + toolTipModifier.feature.properties.title +  '</p>' +
+    '<p>' + toolTipModifier.feature.properties.description + '</p>'
+  },
+
+  showToolTip: function(){
+    $("#tooltip" ).html(toolTipModifier.info)
+    $("#tooltip" ).fadeIn( 300, function() {
+      $('#tooltip').removeClass('hidden')
+    })
+  },
+
+  hideToolTip: function(){
+    MapBuilder.blueMarkerLayer.on('mouseout', function(e) {
+      $('#tooltip').fadeOut(300, function(){ 
+      e.layer.closePopup();
+      $('#tooltip').addClass('hidden')
+      })
+    });
+  }
+},
+ 
 Converter = {
     //should this be done in ruby land instead to minimize number of format conversions
-    convertToGeoJSONFormat: function(location){
+    toGeoJSONFormat: function(media){
       return {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [location[1],location[0]]
+          coordinates: [media[1],media[0]]
         },
         properties: {
-         title: "I'M A MARKER, BITCH",
-         description: 'meow',
-         icon: {
-          iconUrl: "http://imgur.com/hZE9VrA.png",
+          title: "Salar sucks",
+          description: '<img src=' + media[2] + '>',
+          icon: {
+            iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6], //icon size
-          iconAnchor: [0,0] //point of icon that corresponds to marker location
+          iconAnchor: [10,10] //point of icon that corresponds to marker location
         }
       }
     }
