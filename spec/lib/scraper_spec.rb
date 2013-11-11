@@ -71,7 +71,8 @@ describe "Scraper" do
       like_count: 0,
       link: "http://instagram.com/p/gkBV7yrjps/",
       thumbnail_url: "http://distilleryimage8.s3.amazonaws.com/269e609a4a9311e3931a0eb48f42df98_5.jpg",
-      caption: "Cute"}
+      caption: "Cute"
+    }
   }
 
   context "return_time_tuples" do

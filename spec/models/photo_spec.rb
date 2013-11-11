@@ -5,6 +5,10 @@ describe Photo do
   let(:photo) {
     photo = Photo.new
     photo.insta_id = "xfsdfxfdsf34"
+    photo.latitude = 2222.0
+    photo.longitude = 1111.0
+    photo.thumbnail_url = "imapicture.jpg"
+    photo.created_time = 20
     photo
    }
 
@@ -29,11 +33,29 @@ describe Photo do
     }.to change{Photo.count}.by(1)
   end
 
-  it "should return an array of tuples of lat and long" do
-  	photo.latitude = 2222.0
-  	photo.longitude = 1111.0
-  	photo.save
-  	media = Photo.all
-  	expect(Photo.grab_lat_longs(media)).to eql([[2222.0,1111.0]]) 
-	end
+  context "grab_media_info" do
+    it "should return an array of objects from db with latitude, longitude, and thumbnail_url" do
+    	photo.save
+      photo_from_db = Photo.where(created_time: 20)
+
+    	expect(Photo.grab_media_info(photo_from_db)[0]).to include("latitude" => 2222.0, "longitude" => 1111.0, "thumbnail_url" => "imapicture.jpg") 
+	  end 
+  end
+
+  context "create_tuples" do
+    it "should return an array of tuples of objects" do
+      photo.save
+      expect(Photo.create_tuples({:start_time => 0, :end_time => 30, :interval => 30})[0][1][0]).to include("latitude" => 2222.0)
+    end
+  end
 end
+
+
+
+
+
+
+
+
+
+
