@@ -25,9 +25,48 @@ MapBuilder = {
     return L.mapbox.map('map', 'salarkhan.g7l7ga11')
     .setView([37.769, -122.439],13)
   },
-    mapController: function(media_collection){
-      console.log(media_collection)
+
+  mapController: function(arrayOfJSONTuples){
+    var arrayOfGeoJSONTuples = MapBuilder.convertToGeoJSONs(arrayOfJSONTuples)
+    for(i=0; i<arrayOfJSONTuples.length; i++){
+      // MapBuilder.createGeoJSONLayer(arrayOfGeoJSONTuples[i][0])
+      // MapBuilder.addMarkersToLayer(arrayOfGeoJSONTuples[i][1])
     }
+  },
+
+  convertToGeoJSONs: function(arrayOfJSONTuples){
+    for(i=0; i<arrayOfJSONTuples.length; i++){
+      console.log("first level", arrayOfJSONTuples[i])
+        for(j=0; j<arrayOfJSONTuples[i][0].length; i++){
+            console.log("one level deep",arrayOfJSONTuples[i][j])
+          }
+        for(j=0; j<arrayOfJSONTuples[i][1].length; i++){
+            console.log("other side, 1 deep",arrayOfJSONTuples[i][j])
+          }
+    //
+    //     if(arrayOfJSONTuples[i][0][j]){
+    //       arrayOfJSONTuples[i][0][j] = Converter.toGeoJSONFormat(arrayOfJSONTuples[i][0][j])
+    //     }
+    //   }
+    //   for(j=0; j<arrayOfJSONTuples[i][1].length; i++){
+    //     if(arrayOfJSONTuples[i][1][j]){
+    //       arrayOfJSONTuples[i][1][j] = Converter.toGeoJSONFormat(arrayOfJSONTuples[i][1][j])
+    //     }
+    //   }
+    // }
+    }
+    // return arrayOfJSONTuples
+  },
+
+  createGeoJSONLayer: function(geoJSON){
+    MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
+  },
+
+  addMarkersToLayer: function(photoObjects){
+    for(i=0; i<photoObjects.length; i++){
+      MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(photoObjects[i]).addTo(MapBuilder.map)
+    }
+  }
 
 
   // mapController: function(media_collection) {
@@ -77,8 +116,8 @@ toolTipModifier = {
   hideToolTip: function(){
     MapBuilder.blueMarkerLayer.on('mouseout', function(e) {
       $('#tooltip').fadeOut(300, function(){
-      e.layer.closePopup();
-      $('#tooltip').addClass('hidden')
+        e.layer.closePopup();
+        $('#tooltip').addClass('hidden')
       })
     });
   }
@@ -91,11 +130,11 @@ Converter = {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [media[1],media[0]]
+          coordinates: [media.long,media.lat]
         },
         properties: {
           title: "Salar sucks",
-          description: '<img src=' + media[2] + '>',
+          description: '<img src=' + media.thumbnail_url + '>',
           icon: {
             iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6], //icon size
