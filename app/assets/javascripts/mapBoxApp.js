@@ -19,6 +19,54 @@ TimeSelector = {
   }
 }
 
+
+Converter = {
+  seperateTuples: function(arrayOfJSONTuples){
+    var collectionOfGeoJSONTuples = []
+    for(tuple=0; tuple<arrayOfJSONTuples.length; tuple++){
+      collectionOfGeoJSONTuples.push(Converter.getInsideTuple(arrayOfJSONTuples[tuple]))
+    }
+    return collectionOfGeoJSONTuples
+  },
+
+  getInsideTuple: function(individualTuple){
+    var objectSet = []
+    for(objects=0; objects<individualTuple.length; objects++){
+      objectSet.push(Converter.getObject(individualTuple[objects]))
+    }
+    return objectSet
+  },
+
+  getObject: function(objectSet){
+    var arrayOfGeoJSONs = []
+    for(object=0; object<objectSet.length; object++){
+      arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(objectSet[object]))
+    }
+    return arrayOfGeoJSONs
+  },
+
+  toGeoJSONFormat: function(media){
+    if(media){
+      return {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [media.long,media.lat]
+        },
+        properties: {
+          title: "Salar sucks",
+          description: '<img src=' + media.thumbnail_url + '>',
+          icon: {
+            iconUrl: "http://imgur.com/hZE9VrA.png",
+            iconSize: [6,6],
+            iconAnchor: [10,10]
+          }
+        }
+      }
+    }
+  }
+}
+
 MapBuilder = {
 
   createMap: function(){
@@ -27,61 +75,25 @@ MapBuilder = {
   },
 
   mapController: function(arrayOfJSONTuples){
-    console.log(arrayOfJSONTuples)
-    var arrayOfGeoJSONTuples = MapBuilder.convertToGeoJSONs(arrayOfJSONTuples)
-    // arrayOfGeoJSONTuples[i][0]
-
-
+    var arrayOfGeoJSONTuples = Converter.seperateTuples(arrayOfJSONTuples)
+    // console.log(arrayOfGeoJSONTuples[0])
     for(i=0; i<arrayOfJSONTuples.length; i++){
+      console.log(arrayOfGeoJSONTuples[i][0])
+      console.log(arrayOfGeoJSONTuples[i][1])
       // MapBuilder.createGeoJSONLayer(arrayOfGeoJSONTuples[i][0])
       // MapBuilder.addMarkersToLayer(arrayOfGeoJSONTuples[i][1])
     }
   },
 
-  convertToGeoJSONs: function(arrayOfJSONTuples){
-    for(tuple=0; tuple < arrayOfJSONTuples.length; tuple++){
+  createGeoJSONLayer: function(geoJSON){
+    MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
+  },
 
-      if(arrayOfJSONTuples[tuple][0].length > 0){
-
-        for(objects=0; objects < arrayOfJSONTuples[tuple][0].length; objects++){
-
-          if(typeof arrayOfJSONTuples[tuple][objects] !== 'undefined' && arrayOfJSONTuples[tuple][objects].length > 0){
-
-            for(object=0; object < arrayOfJSONTuples[tuple][objects].length; object++ ){
-              // Converter.toGeoJSONFormat(arrayOfJSONTuples[tuple][objects][object])
-              arrayOfJSONTuples[tuple][objects][object] = "herp"
-            }
-          }
-        }
-      }
-
-      if(arrayOfJSONTuples[tuple][1].length > 0){
-
-        for(objects=0; objects < arrayOfJSONTuples[tuple][1].length; objects++){
-
-          if(typeof arrayOfJSONTuples[tuple][objects] !== 'undefined' &&
-            arrayOfJSONTuples[tuple][objects].length > 0){
-
-            for(object=0; object < arrayOfJSONTuples[tuple][objects].length; object++){
-                //Converter.toGeoJSONFormat(arrayOfJSONTuples[tuple][objects][object])
-                arrayOfJSONTuples[tuple][objects][object] = "derp"
-              }
-            }
-          }
-        }
-      }
-      return arrayOfJSONTuples
-    },
-
-    createGeoJSONLayer: function(geoJSON){
-      MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
-    },
-
-    addMarkersToLayer: function(photoObjects){
-      for(i=0; i<photoObjects.length; i++){
-        MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(photoObjects[i]).addTo(MapBuilder.map)
-      }
+  addMarkersToLayer: function(photoObjects){
+    for(i=0; i<photoObjects.length; i++){
+      MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(photoObjects[i]).addTo(MapBuilder.map)
     }
+  }
 
   // mapController: function(media_collection) {
   //   var geoJsonCollection = []
@@ -135,29 +147,4 @@ toolTipModifier = {
       })
     });
   }
-},
-
-Converter = {
-    //should this be done in ruby land instead to minimize number of format conversions
-    toGeoJSONFormat: function(media){
-      if(media){
-        return {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [media.long,media.lat]
-          },
-          properties: {
-            title: "Salar sucks",
-            description: '<img src=' + media.thumbnail_url + '>',
-            icon: {
-              iconUrl: "http://imgur.com/hZE9VrA.png",
-          iconSize: [6,6], //icon size
-          iconAnchor: [10,10] //point of icon that corresponds to marker location
-        }
-      }
-    }
-  }
 }
-}
-
