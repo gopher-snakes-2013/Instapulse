@@ -25,24 +25,28 @@ MapBuilder = {
     return L.mapbox.map('map', 'salarkhan.g7l7ga11')
     .setView([37.769, -122.439],13)
   },
-
-  mapController: function(media_collection) {
-    var geoJsonCollection = []
-    for(var i=0; i<media_collection.length; i++){
-      geoJsonCollection.push(Converter.toGeoJSONFormat(media_collection[i]))
+    mapController: function(media_collection){
+      console.log(media_collection)
     }
-    MapBuilder.geoJsonCollection = geoJsonCollection
-    MapBuilder.addMarkerIncrementally(0)
-  },
 
-  addMarkerIncrementally: function (index) {
-    MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(MapBuilder.geoJsonCollection[index]).addTo(MapBuilder.map)
-    var that = this
-    setTimeout(function(){ if (index < MapBuilder.geoJsonCollection.length){
-      that.addMarkerIncrementally(++index)}
-    }, 1)
-    toolTipModifier.handleToolTips()
-  }
+
+  // mapController: function(media_collection) {
+  //   var geoJsonCollection = []
+  //   for(var i=0; i<media_collection.length; i++){
+  //     geoJsonCollection.push(Converter.toGeoJSONFormat(media_collection[i]))
+  //   }
+  //   MapBuilder.geoJsonCollection = geoJsonCollection
+  //   MapBuilder.addMarkerIncrementally(0)
+  // },
+
+  // addMarkerIncrementally: function (index) {
+  //   MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(MapBuilder.geoJsonCollection[index]).addTo(MapBuilder.map)
+  //   var that = this
+  //   setTimeout(function(){ if (index < MapBuilder.geoJsonCollection.length){
+  //     that.addMarkerIncrementally(++index)}
+  //   }, 1)
+  //   toolTipModifier.handleToolTips()
+  // }
 }
 
 toolTipModifier = {

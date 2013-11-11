@@ -1,14 +1,16 @@
 class MapsController < ApplicationController
+include FormInterpreter
+
   def index
-    media = Photo.order(:created_time)
-    output =  Photo.grab_media_info(media)
-    respond_to do |format|
-      format.html
-      format.json { render :json => output.to_json  }
+    if params[:start_time]
+    	playback_attributes = FormInterpreter.interpret_form(params[:start_time],params[:end_time],params[:speed])
+      output = Photo.create_tuples(playback_attributes)
     end
+      respond_to do |format|
+        format.html
+        format.json { render :json => output.to_json  }
+  	end
   end
-
-
 end
 
 # Uncomment if want to see file with JSON

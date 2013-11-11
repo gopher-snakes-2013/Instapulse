@@ -1,0 +1,10 @@
+html {
+  background-color: #191919;
+}
+#time_selector {
+  height: 50px;
+}
+
+select {
+  font-family: cursive;
+}
