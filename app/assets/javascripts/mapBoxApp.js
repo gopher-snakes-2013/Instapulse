@@ -22,24 +22,25 @@ TimeSelector = {
 
 Converter = {
   seperateTuples: function(arrayOfJSONTuples){
+    debugger
     var collectionOfGeoJSONTuples = []
-    for(tuple=0; tuple<arrayOfJSONTuples.length; tuple++){
-      collectionOfGeoJSONTuples.push(Converter.getInsideTuple(arrayOfJSONTuples[tuple]))
+    for(var tuple=0; tuple<arrayOfJSONTuples.length; tuple++){
+      collectionOfGeoJSONTuples.push(Converter.getTupleOfGeoJSONarrays(arrayOfJSONTuples[tuple]))
     }
     return collectionOfGeoJSONTuples
   },
 
-  getInsideTuple: function(individualTuple){
-    var photoSet = []
-    for(objects=0; objects<individualTuple.length; objects++){
-      photoSet.push(Converter.getObject(individualTuple[objects]))
+  getTupleOfGeoJSONarrays: function(individualTuple){
+    var TupleOfGeoJSONarrays = []
+    for(var j=0; j<individualTuple.length; j++){
+      TupleOfGeoJSONarrays.push(Converter.getPhotoGeoJSONs(individualTuple[j]))
     }
-    return photoSet
+    return TupleOfGeoJSONarrays
   },
 
-  getPhoto: function(photoSet){
+  getPhotoGeoJSONs: function(photoSet){
     var arrayOfGeoJSONs = []
-    for(var i=0; i<photoSet.length; i++){
+    for(var i=0; i < photoSet.length; i++){
       arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(photoSet[i]))
     }
     return arrayOfGeoJSONs

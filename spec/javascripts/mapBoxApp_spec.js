@@ -1,10 +1,13 @@
 describe('Converter', function () {
   var photo;
-  var photoJSON;
+  var photoGeoJSON;
+  var arrayOfGeoJSONs;
+  var photoSet;
 
   beforeEach(function(){
     photo = { longitude: 37.68, latitude: -127.54, thumbnail_url: "http://imgur.com/hZE9VrA.png"  };
-    photoJSON = {
+
+    photoGeoJSON = {
         type: 'Feature',
         geometry: {
           type: 'Point',
@@ -21,34 +24,44 @@ describe('Converter', function () {
         }
       }
 
-  })
+    photoSet = [photo, photo, photo];
+    arrayOfGeoJSONs = [photoGeoJSON, photoGeoJSON, photoGeoJSON];
+    TupleOfGeoJSONarrays = [arrayOfGeoJSONs, arrayOfGeoJSONs]
 
-  // context('seperateTuples', function(){
-  //   it("should return a collection of GeoJSON tuples", function(){
-  //       var arrayOfJSONTuples = [[{ "photo": "salar sucks" }, { "photo": "salar sucks" }, { "photo": "salar sucks" }],
-  //       [{ "photo": "salar sucks" }, { "photo": "salar sucks" },]]
-  //       var collectionOfGeoJSONTuples = Converter.seperateTuples(arrayOfJSONTuples)
-  //     })
-  //   })
+  })
 
   describe('toGeoJSONFormat', function(){
     it("should return a GeoJSON when given a photo object", function(){
-      
-      expect(Converter.toGeoJSONFormat(photo)).toEqual(photoJSON);
+      expect(Converter.toGeoJSONFormat(photo)).toEqual(photoGeoJSON);
     });
   });
 
-  describe('getPhoto', function(){
+  describe('getPhotoGeoJSONs', function(){
     beforeEach(function() {
-      photoJSON.geometry.coordinates = [37.68, -127.54];
-      photoJSON.properties.description = '<img src="http://imgur.com/hZE9VrA.png">';
-    })
+      photoGeoJSON.geometry.coordinates = [37.68, -127.54];
+      photoGeoJSON.properties.description = '<img src="http://imgur.com/hZE9VrA.png">';
+    });
 
     it("returns an array of GeoJSONs when giben a collection of Photo objects", function() {
-      spyOn(Converter, 'toGeoJSONFormat').andReturn(photoJSON);
-      var photoSet = [photo, photo, photo];
-      expect(Converter.getPhoto(photoSet)).toEqual([photoJSON, photoJSON, photoJSON]);
-    })
+      spyOn(Converter, 'toGeoJSONFormat').andReturn(photoGeoJSON);
+      expect(Converter.getPhotoGeoJSONs(photoSet)).toEqual(arrayOfGeoJSONs);
+    });
+  });
+
+  describe("getTupleOfGeoJSONarrays", function(){
+    it("returns a tuple of GeoJSON arrays for each JSON tuple supplied", function(){
+      spyOn(Converter, 'getPhotoGeoJSONs').andReturn(arrayOfGeoJSONs);
+      var individualTuple = [photoSet, photoSet];
+      expect(Converter.getTupleOfGeoJSONarrays(individualTuple)).toEqual(TupleOfGeoJSONarrays);
+    });
+  });
+
+  describe("seperateTuples", function(){
+    it("returns a collection of GeoJSON tuples for each array of JSON tuples supplied", function(){
+      spyOn(Converter, 'getTupleOfGeoJSONarrays').andReturn(TupleOfGeoJSONarrays);
+      var arrayOfJSONTuples = [[photo, photo, photo],[photo, photo]];
+      expect(Converter.seperateTuples(arrayOfJSONTuples));
+    });
   });
 
 });
