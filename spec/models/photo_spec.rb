@@ -27,10 +27,10 @@ describe Photo do
 
 
   it "should have a unique insta_id" do
+    photo.save
     expect {
-      photo.save
       Photo.create(insta_id: "xfsdfxfdsf34")
-    }.to change{Photo.count}.by(1)
+    }.to_not change{Photo.count}
   end
 
   context "grab_media_info" do
@@ -49,13 +49,3 @@ describe Photo do
     end
   end
 end
-
-
-
-
-
-
-
-
-
-
