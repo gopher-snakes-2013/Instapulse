@@ -33,6 +33,7 @@ class Photo < ActiveRecord::Base
 			batch_B_complete_objects = Photo.where(created_time: (time_keeper + batch_time)..(time_keeper + interval))
 			batch_B_digested = Photo.grab_media_info(batch_B_complete_objects)
 			tuple << batch_B_digested
+
 			output << tuple
 
 			time_keeper += batch_time

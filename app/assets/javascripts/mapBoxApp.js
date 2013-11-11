@@ -27,7 +27,11 @@ MapBuilder = {
   },
 
   mapController: function(arrayOfJSONTuples){
+    console.log(arrayOfJSONTuples)
     var arrayOfGeoJSONTuples = MapBuilder.convertToGeoJSONs(arrayOfJSONTuples)
+    // arrayOfGeoJSONTuples[i][0]
+
+
     for(i=0; i<arrayOfJSONTuples.length; i++){
       // MapBuilder.createGeoJSONLayer(arrayOfGeoJSONTuples[i][0])
       // MapBuilder.addMarkersToLayer(arrayOfGeoJSONTuples[i][1])
@@ -35,39 +39,49 @@ MapBuilder = {
   },
 
   convertToGeoJSONs: function(arrayOfJSONTuples){
-    for(i=0; i<arrayOfJSONTuples.length; i++){
-      console.log("first level", arrayOfJSONTuples[i])
-        for(j=0; j<arrayOfJSONTuples[i][0].length; i++){
-            console.log("one level deep",arrayOfJSONTuples[i][j])
+    for(tuple=0; tuple < arrayOfJSONTuples.length; tuple++){
+
+      if(arrayOfJSONTuples[tuple][0].length > 0){
+
+        for(objects=0; objects < arrayOfJSONTuples[tuple][0].length; objects++){
+
+          if(typeof arrayOfJSONTuples[tuple][objects] !== 'undefined' && arrayOfJSONTuples[tuple][objects].length > 0){
+
+            for(object=0; object < arrayOfJSONTuples[tuple][objects].length; object++ ){
+              // Converter.toGeoJSONFormat(arrayOfJSONTuples[tuple][objects][object])
+              arrayOfJSONTuples[tuple][objects][object] = "herp"
+            }
           }
-        for(j=0; j<arrayOfJSONTuples[i][1].length; i++){
-            console.log("other side, 1 deep",arrayOfJSONTuples[i][j])
+        }
+      }
+
+      if(arrayOfJSONTuples[tuple][1].length > 0){
+
+        for(objects=0; objects < arrayOfJSONTuples[tuple][1].length; objects++){
+
+          if(typeof arrayOfJSONTuples[tuple][objects] !== 'undefined' &&
+            arrayOfJSONTuples[tuple][objects].length > 0){
+
+            for(object=0; object < arrayOfJSONTuples[tuple][objects].length; object++){
+                //Converter.toGeoJSONFormat(arrayOfJSONTuples[tuple][objects][object])
+                arrayOfJSONTuples[tuple][objects][object] = "derp"
+              }
+            }
           }
-    //
-    //     if(arrayOfJSONTuples[i][0][j]){
-    //       arrayOfJSONTuples[i][0][j] = Converter.toGeoJSONFormat(arrayOfJSONTuples[i][0][j])
-    //     }
-    //   }
-    //   for(j=0; j<arrayOfJSONTuples[i][1].length; i++){
-    //     if(arrayOfJSONTuples[i][1][j]){
-    //       arrayOfJSONTuples[i][1][j] = Converter.toGeoJSONFormat(arrayOfJSONTuples[i][1][j])
-    //     }
-    //   }
-    // }
+        }
+      }
+      return arrayOfJSONTuples
+    },
+
+    createGeoJSONLayer: function(geoJSON){
+      MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
+    },
+
+    addMarkersToLayer: function(photoObjects){
+      for(i=0; i<photoObjects.length; i++){
+        MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(photoObjects[i]).addTo(MapBuilder.map)
+      }
     }
-    // return arrayOfJSONTuples
-  },
-
-  createGeoJSONLayer: function(geoJSON){
-    MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
-  },
-
-  addMarkersToLayer: function(photoObjects){
-    for(i=0; i<photoObjects.length; i++){
-      MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(photoObjects[i]).addTo(MapBuilder.map)
-    }
-  }
-
 
   // mapController: function(media_collection) {
   //   var geoJsonCollection = []
@@ -126,22 +140,24 @@ toolTipModifier = {
 Converter = {
     //should this be done in ruby land instead to minimize number of format conversions
     toGeoJSONFormat: function(media){
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [media.long,media.lat]
-        },
-        properties: {
-          title: "Salar sucks",
-          description: '<img src=' + media.thumbnail_url + '>',
-          icon: {
-            iconUrl: "http://imgur.com/hZE9VrA.png",
+      if(media){
+        return {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [media.long,media.lat]
+          },
+          properties: {
+            title: "Salar sucks",
+            description: '<img src=' + media.thumbnail_url + '>',
+            icon: {
+              iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6], //icon size
           iconAnchor: [10,10] //point of icon that corresponds to marker location
         }
       }
     }
   }
+}
 }
 

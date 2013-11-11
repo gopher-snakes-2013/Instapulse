@@ -17,3 +17,26 @@ add_markers = function(photoObjects) {
 }
 
 printMap(data)
+
+
+[Array[0], Array[0]]
+[Array[0], Array[2]]
+[Array[2], Array[0]]
+[Array[0], Array[2]]
+[Array[2], Array[0]]
+[Array[0], Array[1]]
+[Array[1], Array[2]]
+[Array[2], Array[1]]
+[Array[1], Array[1]]
+[Array[1], Array[1]]
+[Array[1], Array[2]]
+[Array[2], Array[3]]
+[Array[3], Array[3]]
+[Array[3], Array[1]]
+[Array[1], Array[0]]
+[Array[0], Array[1]]
+[Array[1], Array[1]]
+[Array[1], Array[1]]
+[Array[1], Array[1]]
+[Array[1], Array[0]]
+[Array[0], Array[2]]
