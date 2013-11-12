@@ -1,5 +1,6 @@
 $(document).ready(function(){
   MapBuilder.map = MapBuilder.createMap()
+  MapBuilder.spittle = L.mapbox.markerLayer().addTo(MapBuilder.map)
   TimeSelector.initialize()
 })
 
@@ -83,7 +84,7 @@ MapBuilder = {
         MapBuilder.addMarkersToLayer(arrayOfGeoJSONTuples[counter])
         counter++;
       }
-    }, 1000)
+    }, 2000)
   },
 
   addMarkersToLayer: function(photoObjects){
@@ -99,18 +100,22 @@ MapBuilder = {
           console.log("spittle")
           MapBuilder.decideWhetherToPost(photoObjects[counter])
         }
+
         counter++
       }
-    }, 500)
+    }, 1000)
   },
 
   createGeoJSONLayer: function(geoJSON){
-    MapBuilder.map.markerLayer.eachLayer(  
-      function(l) { MapBuilder.map.markerLayer.removeLayer(l); }
-    );
+    //Can't remove layers
+    // MapBuilder.map.markerLayer.eachLayer(  
+    //   function(l) { MapBuilder.map.markerLayer.removeLayer(l); }
+    // );
+
+    MapBuilder.map.removeLayer(MapBuilder.spittle)
     MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
     console.log(MapBuilder.spittle)
-    debugger
+    // debugger
     MapBuilder.spittle = L.mapbox.markerLayer().addTo(MapBuilder.map)
   },
 
