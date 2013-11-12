@@ -1,15 +1,14 @@
 /*CSS for nav bar at the top of window*/
 
-
 #time_selector {
 	position: relative;
-  background-color: #BF220F;
+  background-color: #89B539;
   text-align: center;
   padding: 0.5%;
   z-index: 2;
   margin: 1.2%;
   border-radius: 2px;
-  opacity: .85;
+  opacity: .75;
   padding: 5px;
 }
 
@@ -20,11 +19,9 @@ select {
   width: 20%;
   font-size: 0.75em;
   border: 0;
-  border-radius: 1;
+  border-radius: 3px;
   padding: 0.75em;
   margin: 0.5em;
-
-  
   color:white;
   text-shadow:rgba(0,0,0,0) 0px -1px;
   -webkit-font-smoothing:antialiased;
@@ -44,6 +41,9 @@ input {
 	padding: 100px;
 }
 
-option {
+@media screen and (max-width: 500px) {
 
+	#time_selector {
+		background-color: red;
+	}
 }

@@ -20,7 +20,6 @@ TimeSelector = {
   }
 }
 
-
 Converter = {
   seperateTuples: function(arrayOfJSONTuples){
     var collectionOfGeoJSONTuples = []
@@ -88,7 +87,6 @@ MapBuilder = {
       }
     }, 1000)
   },
-
 
   createGeoJSONLayer: function(geoJSON){
     MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
