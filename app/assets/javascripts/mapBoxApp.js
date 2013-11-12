@@ -1,5 +1,6 @@
 $(document).ready(function(){
   MapBuilder.map = MapBuilder.createMap()
+  MapBuilder.spittleLayer = L.mapbox.markerLayer().addTo(MapBuilder.map)
   TimeSelector.initialize()
 })
 
@@ -69,37 +70,24 @@ Converter = {
 }
 
 MapBuilder = {
-    // var myArray = [
-    //   [{a: 1}, {b:1}],
-    //   [{a: 2}, {b:2}]
-    // ]
-
   createMap: function(){
     return L.mapbox.map('map', 'salarkhan.g7l7ga11')
     .setView([37.769, -122.439],13)
   },
 
   mapController: function(arrayOfJSONTuples){
-      var myArray = [
-      [
-      [{a: 0}, {b:1}],
-      [{c: 0}, {d:1}],
-      [],
-      [{e: 0}]
-      ]
-    ]
-
     var arrayOfGeoJSONTuples = Converter.seperateTuples(arrayOfJSONTuples)
     var counter = 0
     var arrayInterval = setInterval(function(){
-      if(counter === myArray.length){
+      if(counter === arrayOfGeoJSONTuples.length){
         clearInterval(arrayInterval)
       } else {
-        MapBuilder.addMarkersToLayer(myArray[counter])
+        MapBuilder.addMarkersToLayer(arrayOfGeoJSONTuples[counter])
         counter++;
       }
-    }, 100)
+    }, 1000)
   },
+
 
   createGeoJSONLayer: function(geoJSON){
     MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
@@ -111,49 +99,32 @@ MapBuilder = {
       if(counter === photoObjects.length) {
         clearInterval(tupleInterval);
       } else {
-        console.log("photoObjects[counter]", photoObjects[counter])
-        MapBuilder.decideWhetherToPost(photoObjects[counter])
+        if (counter % 2 === 0){
+          console.log("SLAP")
+          MapBuilder.createGeoJSONLayer(photoObjects[counter])
+        } else{
+          console.log("spittle")
+          MapBuilder.decideWhetherToPost(photoObjects[counter])
+        }
         counter++
       }
-    }, 50)
+    }, 500)
   },
 
   decideWhetherToPost: function(photoObjectArray){
-    // if(photoObjectArray.length > 0){
       var counter = 0
       var objectInterval = setInterval(function(){
         if(counter === photoObjectArray.length){
-          // console.log("gurl im empty")
           clearInterval(objectInterval)
         }
         else {
-          console.log("This is what we have in else -->",photoObjectArray[counter])
+          // MapBuilder.spittleLayer = L.mapbox.markerLayer().addTo(MapBuilder.map)
+          MapBuilder.spittleLayer = L.mapbox.markerLayer(photoObjectArray[counter]).addTo(MapBuilder.map)
           counter++
         }
-      }, 25)
+      }, 50)
     }
   }
-
-  // addMarkerIncrementally: function(index) {
-  //   MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(MapBuilder.photoObjects[index]).addTo(MapBuilder.map)
-  //   var that = this
-  //   setTimeout(function(){ if (index < MapBuilder.photoObjects.length){
-  //     that.addMarkerIncrementally(++index)}
-  //   }, 100)
-  //   toolTipModifier.handleToolTips()
-  // }
-
-
-  // mapController: function(media_collection) {
-  //   var geoJsonCollection = []
-  //   for(var i=0; i<media_collection.length; i++){
-  //     geoJsonCollection.push(Converter.toGeoJSONFormat(media_collection[i]))
-  //   }
-  //   MapBuilder.geoJsonCollection = geoJsonCollection
-  //   MapBuilder.addMarkerIncrementally(0)
-  // },
-
-
 
 toolTipModifier = {
 
@@ -189,3 +160,12 @@ toolTipModifier = {
     });
   }
 }
+
+    //      var myArray = [
+    //   [
+    //   [{a: 0}, {b:1}],
+    //   [{c: 0}, {d:1}],
+    //   [],
+    //   [{e: 0}]
+    //   ]
+    // ]
