@@ -4,7 +4,7 @@ include FormInterpreter
   def index
     if params[:start_time]
     	playback_attributes = FormInterpreter.interpret_form(params[:start_time],params[:end_time],params[:speed])
-      output = Photo.create_tuples(playback_attributes)
+      output = Photo.fetch_data_array(playback_attributes)
     end
       respond_to do |format|
         format.html
