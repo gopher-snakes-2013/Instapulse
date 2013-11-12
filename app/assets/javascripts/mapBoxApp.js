@@ -1,6 +1,6 @@
 $(document).ready(function(){
   MapBuilder.map = MapBuilder.createMap()
-  MapBuilder.spittleLayer = L.mapbox.markerLayer().addTo(MapBuilder.map)
+  MapBuilder.spittle = L.mapbox.markerLayer().addTo(MapBuilder.map)
   TimeSelector.initialize()
 })
 
@@ -19,7 +19,6 @@ TimeSelector = {
     })
   }
 }
-
 
 Converter = {
   seperateTuples: function(arrayOfJSONTuples){
@@ -60,7 +59,7 @@ Converter = {
           icon: {
             iconUrl: "http://imgur.com/hZE9VrA.png",
             iconSize: [6,6],
-            iconAnchor: [10,10]
+            iconAnchor: [3,6]
           }
         }
       }
@@ -84,13 +83,7 @@ MapBuilder = {
         MapBuilder.addMarkersToLayer(arrayOfGeoJSONTuples[counter])
         counter++;
       }
-    }, 1000)
-  },
-
-
-  createGeoJSONLayer: function(geoJSON){
-    MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
-    debugger
+    }, 2000)
   },
 
   addMarkersToLayer: function(photoObjects){
@@ -106,9 +99,22 @@ MapBuilder = {
           console.log("spittle")
           MapBuilder.decideWhetherToPost(photoObjects[counter])
         }
+
         counter++
       }
-    }, 500)
+    }, 1000)
+  },
+
+  createGeoJSONLayer: function(geoJSON){
+    //Can't remove layers
+    // MapBuilder.map.markerLayer.eachLayer(  
+    //   function(l) { MapBuilder.map.markerLayer.removeLayer(l); }
+    // );
+
+    MapBuilder.map.removeLayer(MapBuilder.spittle)
+    MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
+    console.log(MapBuilder.spittle)
+    MapBuilder.spittle = L.mapbox.markerLayer().addTo(MapBuilder.map)
   },
 
   decideWhetherToPost: function(photoObjectArray){
@@ -118,8 +124,7 @@ MapBuilder = {
           clearInterval(objectInterval)
         }
         else {
-          // MapBuilder.spittleLayer = L.mapbox.markerLayer().addTo(MapBuilder.map)
-          MapBuilder.spittleLayer = L.mapbox.markerLayer(photoObjectArray[counter]).addTo(MapBuilder.map)
+          L.mapbox.markerLayer(photoObjectArray[counter]).addTo(MapBuilder.spittle)
           counter++
         }
       }, 50)
