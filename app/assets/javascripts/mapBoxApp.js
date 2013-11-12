@@ -1,6 +1,5 @@
 $(document).ready(function(){
   MapBuilder.map = MapBuilder.createMap()
-  MapBuilder.spittle = L.mapbox.markerLayer().addTo(MapBuilder.map)
   TimeSelector.initialize()
 })
 
@@ -25,7 +24,7 @@ Converter = {
     var convertedPhotos = []
     $.each(arrayOfJSONs, function(index, photoJSON) {
       geoPhoto = Converter.toGeoJSONFormat(photoJSON)
-      convertedPhotos << geoPhoto
+      convertedPhotos.push(geoPhoto)
     })
     return convertedPhotos
   },
@@ -51,6 +50,9 @@ Converter = {
 }
 
 MapBuilder = {
+  delay: 50,
+  maxLayers: 1000,
+
   createMap: function(){
     return L.mapbox.map('map', 'salarkhan.g7l7ga11')
     .setView([37.769, -122.439],13)
@@ -58,29 +60,53 @@ MapBuilder = {
 
   mapController: function(arrayOfJSONs){
     MapBuilder.arrayOfGeoJSONs = Converter.convertToGeoJSON(arrayOfJSONs)
-    console.log(MapBuilder.arrayOfGeoJSONs)
     MapBuilder.mappedPoints = []
-    MapBuilder.initializeMap(MapBuilder.arrayOfGeoJSONs, 35)
+    //test mapping of a single point
+    // debugger
+    // photo = { 
+    //     type: 'Feature',
+    //     geometry: {
+    //       type: 'Point',
+    //       coordinates: [37.68, -127.54]
+    //     },
+    //     properties: {
+    //       title: "Salar sucks",
+    //       description: '<img src=' + "http://imgur.com/hZE9VrA.png" + '>',
+    //       icon: {
+    //         iconUrl: "http://imgur.com/hZE9VrA.png",
+    //         iconSize: [6,6],
+    //         iconAnchor: [10,10]
+    //       }
+    //     }
+    //   }
+    // newLayer = L.mapbox.markerLayer(photo).addTo(MapBuilder.map)
+    // debugger
+    // console.log(MapBuilder.arrayOfGeoJSONs)
+    MapBuilder.initializeMap(MapBuilder.arrayOfGeoJSONs, MapBuilder.maxLayers)
+    // console.log(MapBuilder.arrayOfGeoJSONs)
     MapBuilder.markerAddRemove(MapBuilder.arrayOfGeoJSONs)
   },
 
   initializeMap: function(arrayOfGeoJSONs, numToInitialize){
     var pointsToInitialize = arrayOfGeoJSONs.slice(0, numToInitialize)
     $.each(pointsToInitialize, function(index, photo){
-      MapBuilder.createMarkerLayer(photo)
+      MapBuilder.createMarkerLayer(photo, MapBuilder.delay*index, false)
       MapBuilder.arrayOfGeoJSONs.shift()
     })
   },
 
-  createMarkerLayer: function(photo){
-    newLayer = L.mapbox.markerLayer(photo).addTo(MapBuilder.map)
-    MapBuilder.mappedPoints << newLayer
+  createMarkerLayer: function(photo, timeout, remove){
+    setTimeout(function() {
+      newLayer = L.mapbox.markerLayer(photo)
+      MapBuilder.mappedPoints.push(newLayer)
+      newLayer.addTo(MapBuilder.map)
+      if (remove) MapBuilder.removeMarkerLayer()
+    }, timeout);
   },
 
   markerAddRemove: function(arrayOfGeoJSONs){
     $.each(arrayOfGeoJSONs, function(index, photo){
-      createMarkerLayer(photo)
-      removeMarkerLayer()
+      MapBuilder.createMarkerLayer(photo, (MapBuilder.maxLayers*MapBuilder.delay)+(MapBuilder.delay*index), true)
     })
   },
 
