@@ -16,7 +16,7 @@ describe "FormInterpreter" do
 
   context "interpret_form" do
   	it "converts start time, end time, and an interval from AJAX to usable paramaters" do
-  		expect(FormInterpreter.interpret_form('1', '2', 30)).to eql({:start_time => 1383210000, :end_time => 1383213600, :interval => 1800})
+  		expect(FormInterpreter.interpret_form('1', '2', '30')).to eql({:start_time => 1383210000, :end_time => 1383213600, :interval => 1800})
 		end
   end
 end
