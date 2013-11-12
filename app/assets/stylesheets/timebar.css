@@ -2,7 +2,7 @@
 
 #time_selector {
 	position: relative;
-  background-color: #89B539;
+  background-color: #969491;
   text-align: center;
   padding: 0.5%;
   z-index: 2;
@@ -17,7 +17,7 @@ select {
   background: none;
   background-color: rgba(0,0,0,.25);
   width: 20%;
-  font-size: 0.75em;
+  font-size: 0.80em;
   border: 0;
   border-radius: 3px;
   padding: 0.75em;
@@ -40,10 +40,9 @@ select[type=dropdown]:hover {
 input {
 	padding: 100px;
 }
-
+/*
 @media screen and (max-width: 500px) {
-
 	#time_selector {
 		background-color: red;
 	}
-}
+}*/
