@@ -1,3 +1,5 @@
+#ryan!!
+
 module FormInterpreter
 
   def self.military_to_unix_time(military_time)
@@ -9,7 +11,24 @@ module FormInterpreter
   end
 
   def self.playback_speed_to_seconds_interval(speed)
-    return speed.to_i * 60
+    case speed
+    when '0.5'
+      30
+    when '1'
+      60
+    when '2'
+      120
+    when '3'
+      180
+    when '6'
+      360
+    when '8'
+      480
+    when '15'
+      900
+    when '30'
+      1800
+    end
   end
 
   def self.interpret_form(start_time, end_time, speed)
