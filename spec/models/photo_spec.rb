@@ -23,7 +23,7 @@ describe Photo do
     photo
     expect {
       Photo.create(insta_id: "xfsdfxfdsf34")
-    }.to_not change{Photo.count}
+    }.to change{Photo.count}.by(0)
   end
 
   context "grab_media_info" do
