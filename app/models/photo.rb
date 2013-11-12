@@ -31,13 +31,13 @@ class Photo < ActiveRecord::Base
 			batch_A_digested = Photo.grab_media_info(batch_A_complete_objects)
 			tuple << batch_A_digested
 
-			batch_B_complete_objects = Photo.where(created_time: (time_keeper + batch_time)..(time_keeper + interval))
+			batch_B_complete_objects = Photo.where(created_time: ((time_keeper+(batch_time/3)))..(time_keeper + batch_time + (batch_time/3)))
 			batch_B_digested = Photo.grab_media_info(batch_B_complete_objects)
 			tuple << batch_B_digested
 
 			output << tuple
 
-			time_keeper += batch_time
+			time_keeper += batch_time - (batch_time/3)
 			if time_keeper >= end_time
 				iterate = false
 			end

@@ -28,6 +28,10 @@ module FormInterpreter
       900
     when '30'
       1800
+    when '90'
+      5400
+    when '180'
+      10800
     end
   end
 

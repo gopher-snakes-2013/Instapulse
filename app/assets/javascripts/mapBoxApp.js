@@ -85,7 +85,7 @@ MapBuilder = {
         MapBuilder.addMarkersToLayer(arrayOfGeoJSONTuples[counter])
         counter++;
       }
-    }, 2000)
+    }, 500)
   },
 
   addMarkersToLayer: function(photoObjects){
@@ -99,17 +99,18 @@ MapBuilder = {
           MapBuilder.createGeoJSONLayer(photoObjects[counter])
         } else{
           console.log("spittle")
-          MapBuilder.decideWhetherToPost(photoObjects[counter])
+          MapBuilder.createGeoJSONLayer(photoObjects[counter])
+          // MapBuilder.decideWhetherToPost(photoObjects[counter])
         }
 
         counter++
       }
-    }, 1000)
+    }, 250)
   },
 
   createGeoJSONLayer: function(geoJSON){
     //Can't remove layers
-    // MapBuilder.map.markerLayer.eachLayer(  
+    // MapBuilder.map.markerLayer.eachLayer(
     //   function(l) { MapBuilder.map.markerLayer.removeLayer(l); }
     // );
 
@@ -123,13 +124,15 @@ MapBuilder = {
       var counter = 0
       var objectInterval = setInterval(function(){
         if(counter === photoObjectArray.length){
+          MapBuilder.map.removeLayer(MapBuilder.spittle)
+          MapBuilder.spittle = L.mapbox.markerLayer().addTo(MapBuilder.map)
           clearInterval(objectInterval)
         }
         else {
           L.mapbox.markerLayer(photoObjectArray[counter]).addTo(MapBuilder.spittle)
           counter++
         }
-      }, 50)
+      }, 500)
     }
   }
 
