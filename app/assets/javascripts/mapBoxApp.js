@@ -20,7 +20,6 @@ TimeSelector = {
   }
 }
 
-
 Converter = {
   seperateTuples: function(arrayOfJSONTuples){
     var collectionOfGeoJSONTuples = []
@@ -115,7 +114,6 @@ MapBuilder = {
     MapBuilder.map.removeLayer(MapBuilder.spittle)
     MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
     console.log(MapBuilder.spittle)
-    // debugger
     MapBuilder.spittle = L.mapbox.markerLayer().addTo(MapBuilder.map)
   },
 
