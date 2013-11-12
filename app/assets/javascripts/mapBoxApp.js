@@ -1,6 +1,7 @@
 $(document).ready(function(){
   MapBuilder.map = MapBuilder.createMap()
-  MapBuilder.spittleLayer = L.mapbox.markerLayer().addTo(MapBuilder.map)
+  // MapBuilder.spittleLayer = L.mapbox.markerLayer().addTo(MapBuilder.map)
+  MapBuilder.spittleLayer = []
   TimeSelector.initialize()
 })
 
@@ -88,41 +89,50 @@ MapBuilder = {
   },
 
 
-  createGeoJSONLayer: function(geoJSON){
-    MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
-    debugger
+  createGeoJSONLayer: function(arrayOfGeoJSONs){
+    MapBuilder.map.markerLayer.clearLayers();
+    MapBuilder.map.markerLayer.setGeoJSON(arrayOfGeoJSONs)
+    console.log("SLAP")
   },
 
-  addMarkersToLayer: function(photoObjects){
+  addMarkersToLayer: function(geoJSONTuple){
     var counter = 0
     var tupleInterval = setInterval(function(){
-      if(counter === photoObjects.length) {
+      if(counter === geoJSONTuple.length) {
         clearInterval(tupleInterval);
       } else {
         if (counter % 2 === 0){
-          console.log("SLAP")
-          MapBuilder.createGeoJSONLayer(photoObjects[counter])
-        } else{
-          console.log("spittle")
-          MapBuilder.decideWhetherToPost(photoObjects[counter])
-        }
+          // MapBuilder.createGeoJSONLayer(geoJSONTuple[counter])
+          }
+        else{
+          MapBuilder.decideWhetherToPost(geoJSONTuple[counter])
+          }
         counter++
+          // MapBuilder.map.markerLayer.clearLayers()
       }
     }, 500)
   },
 
-  decideWhetherToPost: function(photoObjectArray){
+  decideWhetherToPost: function(arrayOfGeoJSONs){
       var counter = 0
+      MapBuilder.map.markerLayer.setGeoJSON(arrayOfGeoJSONs)
       var objectInterval = setInterval(function(){
-        if(counter === photoObjectArray.length){
+        if(counter === arrayOfGeoJSONs.length){
+          MapBuilder.map.markerLayer.setGeoJSON([])
           clearInterval(objectInterval)
         }
         else {
+
           // MapBuilder.spittleLayer = L.mapbox.markerLayer().addTo(MapBuilder.map)
-          MapBuilder.spittleLayer = L.mapbox.markerLayer(photoObjectArray[counter]).addTo(MapBuilder.map)
+          console.log("spittle")
+          MapBuilder.spittleMarker = L.mapbox.markerLayer(arrayOfGeoJSONs[counter]).addTo(MapBuilder.map)
           counter++
         }
-      }, 50)
+        // L.mapbox.markerLayer(arrayOfGeoJSONs).clearLayers()
+          console.log("spittle " + counter)
+          MapBuilder.spittleLayer.clearLayers();
+          //Here clearLayer clears all the spittle markers
+      }, 500)
     }
   }
 
