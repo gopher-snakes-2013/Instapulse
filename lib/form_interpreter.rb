@@ -9,7 +9,7 @@ module FormInterpreter
   end
 
   def self.playback_speed_to_seconds_interval(speed)
-    return speed * 60
+    return speed.to_i * 60
   end
 
   def self.interpret_form(start_time, end_time, speed)

@@ -4,7 +4,7 @@ describe "FormInterpreter" do
 
   context "playback_speed_to_seconds_interval" do
     it "should return an interval 60 times the speed" do
-      expect(FormInterpreter.playback_speed_to_seconds_interval(30)).to eq(1800)
+      expect(FormInterpreter.playback_speed_to_seconds_interval('30')).to eq(1800)
     end
   end
 
