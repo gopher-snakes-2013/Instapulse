@@ -43,7 +43,6 @@
 
  .leaflet-marker-icon {
  	content:url("http://imgur.com/hZE9VrA.png");
-  position: absolute;
  }
 
  .leaflet-marker-icon[style]{
