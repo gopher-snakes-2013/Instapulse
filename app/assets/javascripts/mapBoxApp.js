@@ -1,42 +1,130 @@
+$(document).ready(function(){
+  MapBuilder.map = MapBuilder.createMap()
+  MapBuilder.spittleLayer = L.mapbox.markerLayer().addTo(MapBuilder.map)
+  TimeSelector.initialize()
+})
+
+TimeSelector = {
+  initialize: function(){
+    $('#time_form').on('submit', function(e){
+      e.preventDefault()
+      $.ajax({
+        url:"/maps",
+        type: "GET",
+        dataType: "json",
+        data: $('#time_form').serialize()
+      }).done(function(server_data){
+        MapBuilder.mapController(server_data)
+      })
+    })
+  }
+}
+
+
+Converter = {
+  seperateTuples: function(arrayOfJSONTuples){
+    var collectionOfGeoJSONTuples = []
+    for(var k=0; k<arrayOfJSONTuples.length; k++){
+      collectionOfGeoJSONTuples.push(Converter.getTupleOfGeoJSONarrays(arrayOfJSONTuples[k]))
+    }
+    return collectionOfGeoJSONTuples
+  },
+
+  getTupleOfGeoJSONarrays: function(individualTuple){
+    var TupleOfGeoJSONarrays = []
+    for(var j=0; j<individualTuple.length; j++){
+      TupleOfGeoJSONarrays.push(Converter.getPhotoGeoJSONs(individualTuple[j]))
+    }
+    return TupleOfGeoJSONarrays
+  },
+
+  getPhotoGeoJSONs: function(photoSet){
+    var arrayOfGeoJSONs = []
+    for(var i=0; i < photoSet.length; i++){
+      arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(photoSet[i]))
+    }
+    return arrayOfGeoJSONs
+  },
+
+  toGeoJSONFormat: function(photo){
+    if(photo){
+      return {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [photo.longitude, photo.latitude]
+        },
+        properties: {
+          title: "Salar sucks",
+          description: '<img src=' + photo.thumbnail_url + '>',
+          icon: {
+            iconUrl: "http://imgur.com/hZE9VrA.png",
+            iconSize: [6,6],
+            iconAnchor: [10,10]
+          }
+        }
+      }
+    }
+  }
+}
+
 MapBuilder = {
-  
   createMap: function(){
     return L.mapbox.map('map', 'salarkhan.g7l7ga11')
     .setView([37.769, -122.439],13)
   },
 
-  getInstagram: function(){
-    $.ajax({
-      url: '/',
-      type: 'GET',
-      dataType: 'json',
-      success: MapBuilder.mapController
-    })
+  mapController: function(arrayOfJSONTuples){
+    var arrayOfGeoJSONTuples = Converter.seperateTuples(arrayOfJSONTuples)
+    var counter = 0
+    var arrayInterval = setInterval(function(){
+      if(counter === arrayOfGeoJSONTuples.length){
+        clearInterval(arrayInterval)
+      } else {
+        MapBuilder.addMarkersToLayer(arrayOfGeoJSONTuples[counter])
+        counter++;
+      }
+    }, 1000)
   },
 
-  mapController: function(media_collection) {
-    var geoJsonCollection = []
-    for(var i=0; i<media_collection.length; i++){
-      geoJsonCollection.push(Converter.toGeoJSONFormat(media_collection[i]))
+
+  createGeoJSONLayer: function(geoJSON){
+    MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
+    debugger
+  },
+
+  addMarkersToLayer: function(photoObjects){
+    var counter = 0
+    var tupleInterval = setInterval(function(){
+      if(counter === photoObjects.length) {
+        clearInterval(tupleInterval);
+      } else {
+        if (counter % 2 === 0){
+          console.log("SLAP")
+          MapBuilder.createGeoJSONLayer(photoObjects[counter])
+        } else{
+          console.log("spittle")
+          MapBuilder.decideWhetherToPost(photoObjects[counter])
+        }
+        counter++
+      }
+    }, 500)
+  },
+
+  decideWhetherToPost: function(photoObjectArray){
+      var counter = 0
+      var objectInterval = setInterval(function(){
+        if(counter === photoObjectArray.length){
+          clearInterval(objectInterval)
+        }
+        else {
+          // MapBuilder.spittleLayer = L.mapbox.markerLayer().addTo(MapBuilder.map)
+          MapBuilder.spittleLayer = L.mapbox.markerLayer(photoObjectArray[counter]).addTo(MapBuilder.map)
+          counter++
+        }
+      }, 50)
     }
-    MapBuilder.map = MapBuilder.createMap()
-    MapBuilder.geoJsonCollection = geoJsonCollection
-    MapBuilder.addMarkerIncrementally(0)
-  },
-
-  addMarkerIncrementally: function (index) {
-    MapBuilder.blueMarkerLayer = L.mapbox.markerLayer(MapBuilder.geoJsonCollection[index]).addTo(MapBuilder.map)
-    var that = this
-    setTimeout(function(){ if (index < MapBuilder.geoJsonCollection.length){
-      that.addMarkerIncrementally(++index)}
-    }, 300)
-    toolTipModifier.handleToolTips()
-  },
-
-  initialize: function(){
-    MapBuilder.getInstagram()
   }
-}
 
 toolTipModifier = {
 
@@ -65,36 +153,19 @@ toolTipModifier = {
 
   hideToolTip: function(){
     MapBuilder.blueMarkerLayer.on('mouseout', function(e) {
-      $('#tooltip').fadeOut(300, function(){ 
-      e.layer.closePopup();
-      $('#tooltip').addClass('hidden')
+      $('#tooltip').fadeOut(300, function(){
+        e.layer.closePopup();
+        $('#tooltip').addClass('hidden')
       })
     });
   }
-},
- 
-Converter = {
-    //should this be done in ruby land instead to minimize number of format conversions
-    toGeoJSONFormat: function(media){
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [media[1],media[0]]
-        },
-        properties: {
-          title: "Salar sucks",
-          description: '<img src=' + media[2] + '>',
-          icon: {
-            iconUrl: "http://imgur.com/hZE9VrA.png",
-          iconSize: [6,6], //icon size
-          iconAnchor: [10,10] //point of icon that corresponds to marker location
-        }
-      }
-    }
-  }
 }
 
-$(document).ready(function(){
-  MapBuilder.initialize()
-})
+    //      var myArray = [
+    //   [
+    //   [{a: 0}, {b:1}],
+    //   [{c: 0}, {d:1}],
+    //   [],
+    //   [{e: 0}]
+    //   ]
+    // ]
