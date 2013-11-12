@@ -23,7 +23,6 @@ TimeSelector = {
 
 Converter = {
   seperateTuples: function(arrayOfJSONTuples){
-    debugger
     var collectionOfGeoJSONTuples = []
     for(var k=0; k<arrayOfJSONTuples.length; k++){
       collectionOfGeoJSONTuples.push(Converter.getTupleOfGeoJSONarrays(arrayOfJSONTuples[k]))
@@ -91,6 +90,7 @@ MapBuilder = {
 
   createGeoJSONLayer: function(geoJSON){
     MapBuilder.map.markerLayer.setGeoJSON(geoJSON)
+    debugger
   },
 
   addMarkersToLayer: function(photoObjects){
