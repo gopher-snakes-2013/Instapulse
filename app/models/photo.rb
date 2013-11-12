@@ -3,6 +3,7 @@ class Photo < ActiveRecord::Base
 
 	validates :insta_id, uniqueness: true, presence: true
 
+#Want keys saved as symbols?  (update test line 42 if so)
 	def self.grab_media_info(media)
 		output = []
 		media.each do |photo|
