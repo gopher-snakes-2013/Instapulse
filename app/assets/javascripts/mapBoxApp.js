@@ -70,9 +70,11 @@ Converter = {
 
 MapBuilder = {
   createMap: function(){
-    return L.mapbox.map('map', 'salarkhan.g7l7ga11')
+    return L.mapbox.map('map', 'salarkhan.g7l7ga11', { zoomControl: false })
     .setView([37.769, -122.439],13)
+
   },
+
 
   mapController: function(arrayOfJSONTuples){
     var arrayOfGeoJSONTuples = Converter.seperateTuples(arrayOfJSONTuples)

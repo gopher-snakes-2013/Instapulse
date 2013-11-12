@@ -1,0 +1,18 @@
+/*CSS for pop-up tooltip when interacting with markers*/
+
+#tooltip {
+  position: absolute;
+  background-color: #ecf0f1;
+  border: 2px solid #bdc3c7;
+  z-index: 999;
+  box-shadow: 5px 5px 15px #333;
+  bottom: 50px;
+  right: 50px;
+  height: 200px;
+  width: 200px;
+ }
+
+
+ .hidden {
+  display: none;
+ }

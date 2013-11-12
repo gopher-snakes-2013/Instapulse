@@ -1,6 +1,6 @@
 <div id=time_selector>
-<form id="time_form">
-   <select name="speed">
+  <form id="time_form">
+   <select name="speed" type="dropdown">
      <option value="0.5">0.5</option>
      <option value="1">1</option>
      <option value="2">2</option>
@@ -9,9 +9,9 @@
      <option value="8">8</option>
      <option value"15">15</option>
      <option value="30">30</option>
-  </select>
+   </select>
 
-  <select name="start_time">
+   <select name="start_time" type="dropdown">
      <option value="0000">00:00</option>
      <option value="0100">01:00</option>
      <option value="0200">02:00</option>
@@ -37,9 +37,9 @@
      <option value="2200">21:00</option>
      <option value="2300">23:00</option>
      <option value="2400">24:00</option>
-  </select>
+   </select>
 
-    <select name="end_time">
+   <select name="end_time" type="dropdown">
      <option value="0000">00:00</option>
      <option value="0100">01:00</option>
      <option value="0200">02:00</option>
@@ -65,9 +65,9 @@
      <option value="2200">21:00</option>
      <option value="2300">23:00</option>
      <option value="2400">24:00</option>
-  </select>
-  <input type="submit">
-</form>
+   </select>
+   <input type='submit' class='button quiet' value='Start Playback' name='' />
+ </form>
 </div>
 
 <div id='map'></div>
