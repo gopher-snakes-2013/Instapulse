@@ -23,45 +23,45 @@ TimeSelector = {
 
 Converter = {
   seperateTuples: function(arrayOfJSONTuples){
+    debugger
     var collectionOfGeoJSONTuples = []
-    for(var tuple=0; tuple<arrayOfJSONTuples.length; tuple++){
-      collectionOfGeoJSONTuples.push(Converter.getInsideTuple(arrayOfJSONTuples[tuple]))
+    for(var k=0; k<arrayOfJSONTuples.length; k++){
+      collectionOfGeoJSONTuples.push(Converter.getTupleOfGeoJSONarrays(arrayOfJSONTuples[k]))
     }
     return collectionOfGeoJSONTuples
   },
 
-  getInsideTuple: function(individualTuple){
-    var objectSet = []
-    for(var objects=0; objects<individualTuple.length; objects++){
-      objectSet.push(Converter.getObject(individualTuple[objects]))
+  getTupleOfGeoJSONarrays: function(individualTuple){
+    var TupleOfGeoJSONarrays = []
+    for(var j=0; j<individualTuple.length; j++){
+      TupleOfGeoJSONarrays.push(Converter.getPhotoGeoJSONs(individualTuple[j]))
     }
-    return objectSet
+    return TupleOfGeoJSONarrays
   },
 
-  getObject: function(objectSet){
+  getPhotoGeoJSONs: function(photoSet){
     var arrayOfGeoJSONs = []
-    for(var object=0; object<objectSet.length; object++){
-      arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(objectSet[object]))
+    for(var i=0; i < photoSet.length; i++){
+      arrayOfGeoJSONs.push(Converter.toGeoJSONFormat(photoSet[i]))
     }
     return arrayOfGeoJSONs
   },
 
-  toGeoJSONFormat: function(media){
-    if(media){
+  toGeoJSONFormat: function(photo){
+    if(photo){
       return {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [media.longitude,media.latitude]
+          coordinates: [photo.longitude, photo.latitude]
         },
         properties: {
           title: "Salar sucks",
-          description: '<img src=' + media.thumbnail_url + '>',
+          description: '<img src=' + photo.thumbnail_url + '>',
           icon: {
             iconUrl: "http://imgur.com/hZE9VrA.png",
-            iconSize: [10,10],
-            iconAnchor: [50,50],
-            popupAnchor: [0,-25]
+            iconSize: [6,6],
+            iconAnchor: [10,10]
           }
         }
       }
