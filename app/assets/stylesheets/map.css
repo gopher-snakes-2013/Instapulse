@@ -8,3 +8,10 @@
   top:0;
   z-index: 1;
  }
+
+
+
+/*Hides terms of service*/
+.leaflet-container .leaflet-control-attribution, .leaflet-container .leaflet-control-scale {
+  display: none;
+}
