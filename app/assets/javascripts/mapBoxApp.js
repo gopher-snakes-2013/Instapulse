@@ -1,6 +1,7 @@
 $(document).ready(function(){
   MapBuilder.map = MapBuilder.createMap()
   TimeSelector.initialize()
+  MarkerModifier.changeMarkerIcon()
 })
 
 TimeSelector = {
@@ -42,7 +43,8 @@ Converter = {
         icon: {
           iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6],
-          iconAnchor: [3,6]
+          iconAnchor: [3,6],
+          className: "ig-dot"
         }
       }
     }
@@ -75,9 +77,9 @@ MapBuilder = {
 
   createMarkerLayer: function(photo, timeout, remove){
     setTimeout(function() {
-      newLayer = L.mapbox.markerLayer(photo)
-      MapBuilder.mappedPoints.push(newLayer)
-      newLayer.addTo(MapBuilder.map)
+      MapBuilder.newLayer = L.mapbox.markerLayer(photo)
+      MapBuilder.mappedPoints.push(MapBuilder.newLayer)
+      MapBuilder.newLayer.addTo(MapBuilder.map)
       if (remove) MapBuilder.removeMarkerLayer()
     }, timeout);
   },
@@ -86,6 +88,7 @@ MapBuilder = {
     $.each(arrayOfGeoJSONs, function(index, photo){
       MapBuilder.createMarkerLayer(photo, (MapBuilder.maxLayers*MapBuilder.delay)+(MapBuilder.delay*index), true)
     })
+
   },
 
   removeMarkerLayer: function(){
@@ -94,7 +97,21 @@ MapBuilder = {
   }
 }
 
-toolTipModifier = {
+MarkerModifier = {
+
+  changeMarkerIcon: function(){
+   MapBuilder.map.on('layeradd', function(e) {
+    var marker = e.layer,
+    feature = marker.feature;
+    if(feature){
+      marker.setIcon(L.icon(feature.properties.icon));
+    }
+  });
+ }
+
+}
+
+ToolTipModifier = {
 
   handleToolTips: function(){
     var self = this
@@ -107,13 +124,13 @@ toolTipModifier = {
 
   editToolTip: function(e){
     e.layer.unbindPopup();
-    toolTipModifier.feature = e.layer.feature;
-    toolTipModifier.info = '<p>' + toolTipModifier.feature.properties.title +  '</p>' +
-    '<p>' + toolTipModifier.feature.properties.description + '</p>'
+    ToolTipModifier.feature = e.layer.feature;
+    ToolTipModifier.info = '<p>' + ToolTipModifier.feature.properties.title +  '</p>' +
+    '<p>' + ToolTipModifier.feature.properties.description + '</p>'
   },
 
   showToolTip: function(){
-    $("#tooltip" ).html(toolTipModifier.info)
+    $("#tooltip" ).html(ToolTipModifier.info)
     $("#tooltip" ).fadeIn( 300, function() {
       $('#tooltip').removeClass('hidden')
     })
