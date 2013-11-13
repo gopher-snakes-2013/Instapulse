@@ -1,15 +1,7 @@
 $(document).ready(function(){
   MapBuilder.map = MapBuilder.createMap()
   TimeSelector.initialize()
-
-  MapBuilder.map.on('layeradd', function(e) {
-        var marker = e.layer,
-        feature = marker.feature;
-     if(feature){
-        marker.setIcon(L.icon(feature.properties.icon));
-        }
-      });
-
+  MarkerModifier.changeMarkerIcon()
 })
 
 TimeSelector = {
@@ -105,7 +97,21 @@ MapBuilder = {
   }
 }
 
-toolTipModifier = {
+MarkerModifier = {
+
+  changeMarkerIcon: function(){
+   MapBuilder.map.on('layeradd', function(e) {
+    var marker = e.layer,
+    feature = marker.feature;
+    if(feature){
+      marker.setIcon(L.icon(feature.properties.icon));
+    }
+  });
+ }
+
+}
+
+ToolTipModifier = {
 
   handleToolTips: function(){
     var self = this
@@ -118,13 +124,13 @@ toolTipModifier = {
 
   editToolTip: function(e){
     e.layer.unbindPopup();
-    toolTipModifier.feature = e.layer.feature;
-    toolTipModifier.info = '<p>' + toolTipModifier.feature.properties.title +  '</p>' +
-    '<p>' + toolTipModifier.feature.properties.description + '</p>'
+    ToolTipModifier.feature = e.layer.feature;
+    ToolTipModifier.info = '<p>' + ToolTipModifier.feature.properties.title +  '</p>' +
+    '<p>' + ToolTipModifier.feature.properties.description + '</p>'
   },
 
   showToolTip: function(){
-    $("#tooltip" ).html(toolTipModifier.info)
+    $("#tooltip" ).html(ToolTipModifier.info)
     $("#tooltip" ).fadeIn( 300, function() {
       $('#tooltip').removeClass('hidden')
     })
