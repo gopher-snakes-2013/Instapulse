@@ -37,8 +37,8 @@ Converter = {
         coordinates: [photoJSON.longitude, photoJSON.latitude]
       },
       properties: {
-        title: "Salar sucks",
-        description: '<img src=' + photoJSON.thumbnail_url + '>',
+        // title: "Salar sucks",
+        description: '<a href=' + photoJSON.link_url + '><img src=' + photoJSON.thumbnail_url + '></a>',
         icon: {
           iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6],
@@ -79,8 +79,8 @@ MapBuilder = {
       newLayer = L.mapbox.markerLayer(photo)
       MapBuilder.mappedPoints.push(newLayer)
       newLayer.addTo(MapBuilder.map)
-      MapBuilder.currentLayer = newLayer
-      toolTipModifier.handleToolTips();
+      // MapBuilder.currentLayer = newLayer
+      // toolTipModifier.handleToolTips();
       if (remove) MapBuilder.removeMarkerLayer()
     }, timeout);
   },
@@ -112,7 +112,7 @@ toolTipModifier = {
   editToolTip: function(e){
     e.layer.unbindPopup();
     toolTipModifier.feature = e.layer.feature;
-    toolTipModifier.info = '<p>' + toolTipModifier.feature.properties.title +  '</p>' +
+    toolTipModifier.info =
     '<p>' + toolTipModifier.feature.properties.description + '</p>'
   },
 

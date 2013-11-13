@@ -11,6 +11,7 @@ class Photo < ActiveRecord::Base
 			photo_object["latitude"] = photo.latitude
 			photo_object["longitude"] = photo.longitude
 			photo_object["thumbnail_url"] = photo.thumbnail_url
+			photo_object["link_url"] = photo.link
 			output << photo_object
 		end
 		output
