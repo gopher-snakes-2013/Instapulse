@@ -1,0 +1,38 @@
+
+#feed-container {
+  position: absolute ;
+  bottom: 0px;
+  left: 1.5%;
+  background-color: #656562;
+  border-radius: 4px 4px 0 0;
+  width:97%;
+  height:21%;
+  z-index: 2;
+  padding: 0.5%;
+  overflow:auto;
+  opacity:0.85;
+  margin: auto;
+}
+
+.feed-photo {
+  display: block;
+  width: 150px;
+  height: auto;
+  padding: 0.5em;
+  margin: 0.625em 0.625em 0.625em 0.625em;
+  float: left;
+  background-color: #E0E1E0;
+}
+
+
+
+
+@media screen and (max-width: 500px) {
+  #feed-container {
+    height: 175px;
+  }
+
+  h3 {
+  text-align: center;
+}
+}
