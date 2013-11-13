@@ -11,12 +11,24 @@
 
 #feed-container {
   position: absolute;
+  bottom: 0px;
   background-color: #656562;
   border-radius: 4px;
   width:100%;
-  height:20%;
-  bottom: 0px;
+  height:21%;
+  bottom: 0%;
   z-index: 2;
+  padding: 1.2%;
+  overflow:auto;
   /*opacity:0.75;*/
+}
 
+.feed-photo {
+  display: block;
+  width: 11%;
+  height: auto;
+  padding: 0.3em;
+  margin: 0.625em 0.625em 0.625em 0.625em;
+  float: left;
+  background-color: #E0E1E0;
 }

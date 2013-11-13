@@ -38,8 +38,7 @@ Converter = {
         coordinates: [photoJSON.longitude, photoJSON.latitude]
       },
       properties: {
-        // title: "Salar sucks",
-        description: '<a href=' + photoJSON.link_url + '><img src=' + photoJSON.thumbnail_url + '></a>',
+        image: photoJSON.thumbnail_url,
         icon: {
           iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6],
@@ -80,8 +79,8 @@ MapBuilder = {
       MapBuilder.newLayer = L.mapbox.markerLayer(photo)
       MapBuilder.mappedPoints.push(MapBuilder.newLayer)
       MapBuilder.newLayer.addTo(MapBuilder.map)
-      // MapBuilder.currentLayer = newLayer
-      // toolTipModifier.handleToolTips();
+      MapBuilder.currentLayer = MapBuilder.newLayer
+      ToolTipModifier.handleToolTips();
       if (remove) MapBuilder.removeMarkerLayer()
     }, timeout);
   },
@@ -107,6 +106,10 @@ MarkerModifier = {
     feature = marker.feature;
     if(feature){
       marker.setIcon(L.icon(feature.properties.icon));
+      var popupContent = '<img class ="pop-up" src=' + feature.properties.image + '>'
+      marker.bindPopup(popupContent, {
+        closeButton: true
+      });
     }
   });
  }
@@ -117,10 +120,10 @@ ToolTipModifier = {
 
   handleToolTips: function(){
     var self = this
-    MapBuilder.currentLayer.on('mouseover', function(e) {
+    MapBuilder.currentLayer.on('click', function(e) {
       event.stopPropagation()
       self.editToolTip(e)
-      self.showToolTip()
+      self.addToolTip()
     })
     self.hideToolTip()
   },
@@ -128,13 +131,12 @@ ToolTipModifier = {
   editToolTip: function(e){
     e.layer.unbindPopup();
     ToolTipModifier.feature = e.layer.feature;
-    ToolTipModifier.info = '<p>' + ToolTipModifier.feature.properties.description + '</p>'
+    ToolTipModifier.info = '<div class="feed-photo">' + '<img src=' + ToolTipModifier.feature.properties.image + '>' + '</div>'
   },
 
-  showToolTip: function(){
-    $("#tooltip" ).html(ToolTipModifier.info)
-    $("#tooltip" ).fadeIn( 300, function() {
-      $('#tooltip').removeClass('hidden')
+  addToolTip: function(){
+    $(".pop-up").on('click', function(){
+      $("#feed-container" ).append(ToolTipModifier.info)
     })
   },
 
