@@ -40,6 +40,7 @@ Converter = {
       properties: {
         image: photoJSON.thumbnail_url,
         link_url: photoJSON.link_url,
+        caption: photoJSON.photo_caption,
         icon: {
           iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6],
@@ -132,7 +133,7 @@ ToolTipModifier = {
   editToolTip: function(e){
     e.layer.unbindPopup();
     ToolTipModifier.feature = e.layer.feature;
-    ToolTipModifier.info = '<div class="feed-photo">' + '<a href="' + ToolTipModifier.feature.properties.link_url + '">' + '<img src="' + ToolTipModifier.feature.properties.image + '"/>' + '</a>' + '</div>'
+    ToolTipModifier.info = '<div class="feed-photo">' + '<a href="' + ToolTipModifier.feature.properties.link_url + '">' + '<img src="' + ToolTipModifier.feature.properties.image + '"/>' + '</a>' + '<p>' + ToolTipModifier.feature.properties.caption + '</p>' + '</div>'
   },
 
   addToolTip: function(){
