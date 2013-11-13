@@ -123,7 +123,6 @@ ToolTipModifier = {
   handleToolTips: function(){
     var self = this
     MapBuilder.currentLayer.on('click', function(e) {
-      event.stopPropagation()
       self.editToolTip(e)
       self.addToolTip()
     })
