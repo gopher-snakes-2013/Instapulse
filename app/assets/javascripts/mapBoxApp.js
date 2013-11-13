@@ -42,7 +42,8 @@ Converter = {
         icon: {
           iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6],
-          iconAnchor: [3,6]
+          iconAnchor: [3,6],
+          className: "dot"
         }
       }
     }
@@ -78,6 +79,8 @@ MapBuilder = {
       newLayer = L.mapbox.markerLayer(photo)
       MapBuilder.mappedPoints.push(newLayer)
       newLayer.addTo(MapBuilder.map)
+      MapBuilder.currentLayer = newLayer
+      toolTipModifier.handleToolTips();
       if (remove) MapBuilder.removeMarkerLayer()
     }, timeout);
   },
@@ -98,7 +101,8 @@ toolTipModifier = {
 
   handleToolTips: function(){
     var self = this
-    MapBuilder.blueMarkerLayer.on('mouseover', function(e) {
+    MapBuilder.currentLayer.on('mouseover', function(e) {
+      event.stopPropagation()
       self.editToolTip(e)
       self.showToolTip()
     })
@@ -120,7 +124,7 @@ toolTipModifier = {
   },
 
   hideToolTip: function(){
-    MapBuilder.blueMarkerLayer.on('mouseout', function(e) {
+    MapBuilder.currentLayer.on('mouseout', function(e) {
       $('#tooltip').fadeOut(300, function(){
         e.layer.closePopup();
         $('#tooltip').addClass('hidden')
@@ -130,7 +134,7 @@ toolTipModifier = {
 }
 
 // geoJSON for testing
-    // photo = { 
+    // photo = {
     //     type: 'Feature',
     //     geometry: {
     //       type: 'Point',
