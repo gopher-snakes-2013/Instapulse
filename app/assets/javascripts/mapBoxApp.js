@@ -61,29 +61,7 @@ MapBuilder = {
   mapController: function(arrayOfJSONs){
     MapBuilder.arrayOfGeoJSONs = Converter.convertToGeoJSON(arrayOfJSONs)
     MapBuilder.mappedPoints = []
-    //test mapping of a single point
-    // debugger
-    // photo = { 
-    //     type: 'Feature',
-    //     geometry: {
-    //       type: 'Point',
-    //       coordinates: [37.68, -127.54]
-    //     },
-    //     properties: {
-    //       title: "Salar sucks",
-    //       description: '<img src=' + "http://imgur.com/hZE9VrA.png" + '>',
-    //       icon: {
-    //         iconUrl: "http://imgur.com/hZE9VrA.png",
-    //         iconSize: [6,6],
-    //         iconAnchor: [10,10]
-    //       }
-    //     }
-    //   }
-    // newLayer = L.mapbox.markerLayer(photo).addTo(MapBuilder.map)
-    // debugger
-    // console.log(MapBuilder.arrayOfGeoJSONs)
     MapBuilder.initializeMap(MapBuilder.arrayOfGeoJSONs, MapBuilder.maxLayers)
-    // console.log(MapBuilder.arrayOfGeoJSONs)
     MapBuilder.markerAddRemove(MapBuilder.arrayOfGeoJSONs)
   },
 
@@ -151,11 +129,20 @@ toolTipModifier = {
   }
 }
 
-    //      var myArray = [
-    //   [
-    //   [{a: 0}, {b:1}],
-    //   [{c: 0}, {d:1}],
-    //   [],
-    //   [{e: 0}]
-    //   ]
-    // ]
+// geoJSON for testing
+    // photo = { 
+    //     type: 'Feature',
+    //     geometry: {
+    //       type: 'Point',
+    //       coordinates: [37.68, -127.54]
+    //     },
+    //     properties: {
+    //       title: "Salar sucks",
+    //       description: '<img src=' + "http://imgur.com/hZE9VrA.png" + '>',
+    //       icon: {
+    //         iconUrl: "http://imgur.com/hZE9VrA.png",
+    //         iconSize: [6,6],
+    //         iconAnchor: [10,10]
+    //       }
+    //     }
+    //   }
