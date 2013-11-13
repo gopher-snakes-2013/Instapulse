@@ -2,13 +2,13 @@ $(document).ready(function(){
   MapBuilder.map = MapBuilder.createMap()
   TimeSelector.initialize()
 
- MapBuilder.map.on('layeradd', function(e) {
+  MapBuilder.map.on('layeradd', function(e) {
         var marker = e.layer,
         feature = marker.feature;
-        console.log("MapBuilder.newLayer")
+     if(feature){
         marker.setIcon(L.icon(feature.properties.icon));
+        }
       });
-
 
 })
 
@@ -86,10 +86,6 @@ MapBuilder = {
   createMarkerLayer: function(photo, timeout, remove){
     setTimeout(function() {
       MapBuilder.newLayer = L.mapbox.markerLayer(photo)
-
-      
-
-
       MapBuilder.mappedPoints.push(MapBuilder.newLayer)
       MapBuilder.newLayer.addTo(MapBuilder.map)
       if (remove) MapBuilder.removeMarkerLayer()
@@ -100,6 +96,7 @@ MapBuilder = {
     $.each(arrayOfGeoJSONs, function(index, photo){
       MapBuilder.createMarkerLayer(photo, (MapBuilder.maxLayers*MapBuilder.delay)+(MapBuilder.delay*index), true)
     })
+
   },
 
   removeMarkerLayer: function(){
