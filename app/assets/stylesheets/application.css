@@ -11,39 +11,13 @@
  *= require_self
  *= require_tree .
  */
- body { 
- 	margin:0; 
+
+html {
+  background-color: #191919;
+  font-family: 'Montserrat', sans-serif;
+}
+
+ body {
+ 	margin:0;
  	padding:0;
- }
-
- #map { 
- 	position:absolute; 
- 	top:0; 
- 	bottom:0; 
- 	width:100%; 
- }
-
- #tooltip {
-  position: absolute;
-  background-color: #ecf0f1;
-  border: 2px solid #bdc3c7;
-  z-index: 999;
-  box-shadow: 5px 5px 15px #333;
-  bottom: 50px;
-  right: 50px;
-  height: 200px;
-  width: 200px;
- }
-
- .hidden {
-  display: none;
- }
-
- .leaflet-marker-icon {
- 	content:url("http://imgur.com/hZE9VrA.png");
- }
-
- .leaflet-marker-icon[style]{
- 	 	width:5px !important;
- 		height:5px !important;
  }

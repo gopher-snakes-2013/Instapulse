@@ -19,13 +19,13 @@ end
 
 
 
-2000.times do |i|
+5000.times do |i|
   photo_attributes = {
     :insta_id => i,
     :latitude => location_helper(:latitude),
     :longitude => location_helper(:longitude),
     :location_name => Faker::Address.street_name,
-    :created_time => rand(6000) + 1383288850, 
+    :created_time => rand(86400) + 1383202800, 
     :like_count => rand(20), 
     :link => 'http://instagram.com/p/gKaFkat0Tj/' , 
     :thumbnail_url => "http://origincache-prn.fbcdn.net/1173089_566382760098534_103778226_s.jpg",
