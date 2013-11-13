@@ -50,7 +50,8 @@ Converter = {
 }
 
 MapBuilder = {
-  delay: 50,
+  speed: 50, //20, 10, 5
+  playbackSpeed = 1000.0 * MapBuilder.speed / 3,600 
   maxLayers: 1000,
 
   createMap: function(){
@@ -68,7 +69,7 @@ MapBuilder = {
   initializeMap: function(arrayOfGeoJSONs, numToInitialize){
     var pointsToInitialize = arrayOfGeoJSONs.slice(0, numToInitialize)
     $.each(pointsToInitialize, function(index, photo){
-      MapBuilder.createMarkerLayer(photo, MapBuilder.delay*index, false)
+      MapBuilder.createMarkerLayer(photo, MapBuilder.playbackSpeed * index, false)
       MapBuilder.arrayOfGeoJSONs.shift()
     })
   },
@@ -84,7 +85,7 @@ MapBuilder = {
 
   markerAddRemove: function(arrayOfGeoJSONs){
     $.each(arrayOfGeoJSONs, function(index, photo){
-      MapBuilder.createMarkerLayer(photo, (MapBuilder.maxLayers*MapBuilder.delay)+(MapBuilder.delay*index), true)
+      MapBuilder.createMarkerLayer(photo, (MapBuilder.maxLayers * MapBuilder.playbackSpeed)+(MapBuilder.playbackSpeed*index), true)
     })
   },
 
