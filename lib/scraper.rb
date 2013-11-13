@@ -1,31 +1,33 @@
-#1383208200 8:30 31st
-#
+#1383274800 8:00 31st
+#1383278400 9:00 31st
+
+#1383202800 :00 31st
+#1383289200 :00 1st
+
 module Scraper
 
-  def self.return_time_tuples(start_time, end_time)
-    number_of_intervals = (end_time - start_time)/30
-    time_tuples = []
-    number_of_intervals.times do
-      time_tuples << [start_time, start_time += 30]
+    def self.return_time_tuples(start_time, end_time)
+      number_of_intervals = (end_time - start_time)/30
+      time_tuples = []
+      number_of_intervals.times do
+        time_tuples << [start_time, start_time += 30]
+      end
+      return time_tuples
     end
-    return time_tuples
-  end
 
   def self.instagram_api_call(array_of_time_windows)
     collection_of_json_arrays = []
 
     array_of_time_windows.each do |time_window|
-      # array_of_media_JSONs = Instagram.media_search("37.766915","-122.419624", {distance: 5000, max_timestamp: time_window[1], min_timestamp: time_window[0]})
-
-      # collection_of_json_arrays << array_of_media_JSONs
-      # sleep(4)
-
-      array_of_media_JSONs_right = Instagram.media_search("37.750235","-122.46668", {distance: 2000, max_timestamp: time_window[1], min_timestamp: time_window[0]})
-
-
-      collection_of_json_arrays << array_of_media_JSONs_right if collection_of_json_arrays.include?(array_of_media_JSONs_right)
-
+      array_of_media_JSONs = Instagram.media_search("37.766915","-122.419624", {distance: 5000, max_timestamp: time_window[1], min_timestamp: time_window[0]})
+      collection_of_json_arrays << array_of_media_JSONs
       sleep(4)
+
+      array_of_media_JSONs_right = Instagram.media_search("37.750235","-122.46668", {distance: 5000, max_timestamp: time_window[1], min_timestamp: time_window[0]})
+
+        collection_of_json_arrays << array_of_media_JSONs_right unless collection_of_json_arrays.include?(array_of_media_JSONs_right)
+      sleep(4)
+
     end
     return collection_of_json_arrays
   end
@@ -61,4 +63,5 @@ module Scraper
       Photo.create(photo)
     end
   end
+
 end
