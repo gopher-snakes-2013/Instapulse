@@ -8,6 +8,7 @@ TimeSelector = {
   initialize: function(){
     $('#time_form').on('submit', function(e){
       e.preventDefault()
+      $('#submit_button').css("display", "none")
       if (MapBuilder.mappedPoints){
         $.each(MapBuilder.mappedPoints, function(index, layer){
           MapBuilder.map.removeLayer(layer)
@@ -74,6 +75,7 @@ MapBuilder = {
     MapBuilder.mappedPoints = []
     MapBuilder.initializeMap(MapBuilder.arrayOfGeoJSONs, MapBuilder.maxLayers)
     MapBuilder.markerAddRemove(MapBuilder.arrayOfGeoJSONs)
+    // $('#submit_button').css("display", "inline")
   },
 
   initializeMap: function(arrayOfGeoJSONs, numToInitialize){
