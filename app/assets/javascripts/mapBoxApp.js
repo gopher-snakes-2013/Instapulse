@@ -8,6 +8,13 @@ TimeSelector = {
   initialize: function(){
     $('#time_form').on('submit', function(e){
       e.preventDefault()
+      if (MapBuilder.mappedPoints){
+        $.each(MapBuilder.mappedPoints, function(index, layer){
+          MapBuilder.map.removeLayer(layer)
+        })
+      }
+      var speed = $('#speed')[0].options[$('#speed')[0].selectedIndex].value
+      MapBuilder.definePlaybackSpeed(speed)
       $.ajax({
         url:"/maps",
         type: "GET",
@@ -23,7 +30,7 @@ TimeSelector = {
 Converter = {
   convertToGeoJSON: function(arrayOfJSONs){
     var convertedPhotos = []
-    $.each(arrayOfJSONs, function(index, photoJSON) {
+    $.each(arrayOfJSONs, function(index, photoJSON){
       geoPhoto = Converter.toGeoJSONFormat(photoJSON)
       convertedPhotos.push(geoPhoto)
     })
@@ -52,8 +59,9 @@ Converter = {
 }
 
 MapBuilder = {
-  speed: 50, //20, 10, 5
-  playbackSpeed = 1000.0 * MapBuilder.speed / 3,600 
+  definePlaybackSpeed: function(speed){
+    MapBuilder.playbackSpeed = ((1000.0 * speed) / 3600)
+  },
   maxLayers: 1000,
 
   createMap: function(){
