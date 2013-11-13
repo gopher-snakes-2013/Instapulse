@@ -27,7 +27,3 @@ class Photo < ActiveRecord::Base
 end
 
 #   all_from_db = Photo.where(created_time: (0)..(1383213000))
-
-#test calls for console:
-	#x = Photo.create_tuples({start_time: 1383291500, end_time: 1383291800, interval: 60})
-	# x = Photo.create_tuples({:start_time=>1383206400, :end_time=>1383210000,:interval=>30})
