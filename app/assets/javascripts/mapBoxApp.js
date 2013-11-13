@@ -15,7 +15,8 @@ TimeSelector = {
         })
       }
       var speed = $('#speed')[0].options[$('#speed')[0].selectedIndex].value
-      MapBuilder.definePlaybackSpeed(speed)
+      var startTime = $('#start_time')[0].options[$('#start_time')[0].selectedIndex].value
+      MapBuilder.definePlaybackSpeed(startTime, speed)
       $.ajax({
         url:"/maps",
         type: "GET",
@@ -49,6 +50,7 @@ Converter = {
         image: photoJSON.thumbnail_url,
         link_url: photoJSON.link_url,
         caption: photoJSON.photo_caption,
+        created_time: photoJSON.created_time,
         icon: {
           iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6],
@@ -61,10 +63,13 @@ Converter = {
 }
 
 MapBuilder = {
-  definePlaybackSpeed: function(speed){
-    MapBuilder.playbackSpeed = ((1000.0 * speed) / 3600)
+  definePlaybackSpeed: function(startTime, speed){
+    var unixSelectedDate = 1383202800
+    var unixStartHour = 36 * startTime
+    MapBuilder.unixMapStart = unixSelectedDate + unixStartHour
+    var millisecondsPerInstagramHour = 1000.0 * speed
+    MapBuilder.playbackSpeed = (millisecondsPerInstagramHour / 3600)
   },
-  maxLayers: 300,
 
   createMap: function(){
     return L.mapbox.map('map', 'salarkhan.g7l7ga11', {zoomControl: false})
@@ -74,42 +79,37 @@ MapBuilder = {
   mapController: function(arrayOfJSONs){
     MapBuilder.arrayOfGeoJSONs = Converter.convertToGeoJSON(arrayOfJSONs)
     MapBuilder.mappedPoints = []
-    MapBuilder.initializeMap(MapBuilder.arrayOfGeoJSONs, MapBuilder.maxLayers)
     MapBuilder.markerAddRemove(MapBuilder.arrayOfGeoJSONs)
-  },
-
-  initializeMap: function(arrayOfGeoJSONs, numToInitialize){
-    var pointsToInitialize = arrayOfGeoJSONs.slice(0, numToInitialize)
-    $.each(pointsToInitialize, function(index, photo){
-      MapBuilder.createMarkerLayer(photo, MapBuilder.playbackSpeed * index, false)
-      MapBuilder.arrayOfGeoJSONs.shift()
-    })
-  },
-
-  createMarkerLayer: function(photo, timeout, remove){
-    setTimeout(function() {
-      MapBuilder.newLayer = L.mapbox.markerLayer(photo)
-      MapBuilder.mappedPoints.push(MapBuilder.newLayer)
-      MapBuilder.newLayer.addTo(MapBuilder.map)
-      MapBuilder.currentLayer = MapBuilder.newLayer
-      ToolTipModifier.handleToolTips();
-      if (remove) MapBuilder.removeMarkerLayer()
-    }, timeout);
   },
 
   markerAddRemove: function(arrayOfGeoJSONs){
     $.each(arrayOfGeoJSONs, function(index, photo){
-      MapBuilder.createMarkerLayer(photo, (MapBuilder.maxLayers * MapBuilder.playbackSpeed)+(MapBuilder.playbackSpeed*index), true)
+      var timeout = MapBuilder.playbackSpeed * (photo.properties.created_time - MapBuilder.unixMapStart)
+      var oneHour = MapBuilder.playbackSpeed * 3600
+      MapBuilder.createMarkerLayer(photo, timeout)
+      MapBuilder.removeMarkerLayer(timeout + oneHour)
     })
   },
 
-  removeMarkerLayer: function(){
-    toRemove = MapBuilder.mappedPoints.shift()
-    MapBuilder.map.removeLayer(toRemove)
-    MapBuilder.arrayOfGeoJSONs.shift()
-    if (MapBuilder.arrayOfGeoJSONs.length === 0){
-      MapBuilder.showSubmit()
-    }
+  createMarkerLayer: function(photo, timeout){
+    setTimeout(function() {
+      MapBuilder.newLayer = L.mapbox.markerLayer(photo)
+      MapBuilder.mappedPoints.push(MapBuilder.newLayer)
+      MapBuilder.newLayer.addTo(MapBuilder.map)
+
+      MapBuilder.currentLayer = MapBuilder.newLayer
+      ToolTipModifier.handleToolTips();
+    }, timeout);
+  },
+
+  removeMarkerLayer: function(timeout){
+    setTimeout(function() {
+      var toRemove = MapBuilder.mappedPoints.shift()
+      MapBuilder.map.removeLayer(toRemove)
+      if (MapBuilder.mappedPoints.length === 0){
+        MapBuilder.showSubmit()
+      }
+    },timeout);
   },
 
   showSubmit: function(){
