@@ -54,7 +54,7 @@ MapBuilder = {
   maxLayers: 1000,
 
   createMap: function(){
-    return L.mapbox.map('map', 'salarkhan.g7l7ga11')
+    return L.mapbox.map('map', 'salarkhan.g7l7ga11', {zoomControl: false})
     .setView([37.769, -122.439],13)
   },
 
