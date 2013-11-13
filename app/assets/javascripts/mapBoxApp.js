@@ -38,8 +38,9 @@ Converter = {
         coordinates: [photoJSON.longitude, photoJSON.latitude]
       },
       properties: {
-        title: "Salar sucks",
-        description: '<img src=' + photoJSON.thumbnail_url + '>',
+        image: photoJSON.thumbnail_url,
+        link_url: photoJSON.link_url,
+        caption: photoJSON.photo_caption,
         icon: {
           iconUrl: "http://imgur.com/hZE9VrA.png",
           iconSize: [6,6],
@@ -80,6 +81,8 @@ MapBuilder = {
       MapBuilder.newLayer = L.mapbox.markerLayer(photo)
       MapBuilder.mappedPoints.push(MapBuilder.newLayer)
       MapBuilder.newLayer.addTo(MapBuilder.map)
+      MapBuilder.currentLayer = MapBuilder.newLayer
+      ToolTipModifier.handleToolTips();
       if (remove) MapBuilder.removeMarkerLayer()
     }, timeout);
   },
@@ -105,6 +108,10 @@ MarkerModifier = {
     feature = marker.feature;
     if(feature){
       marker.setIcon(L.icon(feature.properties.icon));
+      var popupContent = '<img class ="pop-up" src=' + feature.properties.image + '>'
+      marker.bindPopup(popupContent, {
+        closeButton: true
+      });
     }
   });
  }
@@ -115,9 +122,9 @@ ToolTipModifier = {
 
   handleToolTips: function(){
     var self = this
-    MapBuilder.blueMarkerLayer.on('mouseover', function(e) {
+    MapBuilder.currentLayer.on('click', function(e) {
       self.editToolTip(e)
-      self.showToolTip()
+      self.addToolTip()
     })
     self.hideToolTip()
   },
@@ -125,19 +132,17 @@ ToolTipModifier = {
   editToolTip: function(e){
     e.layer.unbindPopup();
     ToolTipModifier.feature = e.layer.feature;
-    ToolTipModifier.info = '<p>' + ToolTipModifier.feature.properties.title +  '</p>' +
-    '<p>' + ToolTipModifier.feature.properties.description + '</p>'
+    ToolTipModifier.info = '<div class="feed-photo">' + '<a href="' + ToolTipModifier.feature.properties.link_url + '">' + '<img src="' + ToolTipModifier.feature.properties.image + '"/>' + '</a>' + '<p>' + ToolTipModifier.feature.properties.caption + '</p>' + '</div>'
   },
 
-  showToolTip: function(){
-    $("#tooltip" ).html(ToolTipModifier.info)
-    $("#tooltip" ).fadeIn( 300, function() {
-      $('#tooltip').removeClass('hidden')
+  addToolTip: function(){
+    $(".pop-up").on('click', function(){
+      $("#feed-container" ).append(ToolTipModifier.info)
     })
   },
 
   hideToolTip: function(){
-    MapBuilder.blueMarkerLayer.on('mouseout', function(e) {
+    MapBuilder.currentLayer.on('mouseout', function(e) {
       $('#tooltip').fadeOut(300, function(){
         e.layer.closePopup();
         $('#tooltip').addClass('hidden')
@@ -147,7 +152,7 @@ ToolTipModifier = {
 }
 
 // geoJSON for testing
-    // photo = { 
+    // photo = {
     //     type: 'Feature',
     //     geometry: {
     //       type: 'Point',
