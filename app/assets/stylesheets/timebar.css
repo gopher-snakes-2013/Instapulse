@@ -1,33 +1,43 @@
 /*/*CSS for nav bar at the top of window*/
 
 #time_selector {
-	position: relative;
   background-color: #969491;
-  text-align: center;
-  padding: 0.5%;
-  z-index: 2;
-  margin: 1.2%;
   border-radius: 2px;
-  opacity: .75;
-  padding: 5px;
+  margin: 1%;
+  padding: 0.5%;
+  position: relative;
+  opacity: .85;
+  text-align: center;
+  z-index: 2;
 }
 
 select {
-	font-family: 'Montserrat', sans-serif;
   background: none;
   background-color: rgba(0,0,0,.25);
-  width: 20%;
-  font-size: 0.80em;
   border: 0;
   border-radius: 3px;
-  padding: 0.75em;
-  margin: 0.5em;
   color:white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.80em;
+  margin: 0.5em;
+  padding: 0.75em;
   text-shadow:rgba(0,0,0,0) 0px -1px;
+  width: 10%;
   -webkit-font-smoothing:antialiased;
-	-webkit-appearance: none;
-
+  -webkit-appearance: none;
+  text-indent: 40%;
+  text-transform:
 }
+
+.button.quiet {
+  color: #61D6E5;
+  left: 2%;
+  font-size: 0.75em;
+  font-weight: 700;
+}
+
+#speed{
+  text-indent: 50%}
 
 select[type=dropdown]:hover {
   color:white;
@@ -40,9 +50,19 @@ select[type=dropdown]:hover {
 input {
 	padding: 100px;
 }
-/*
+
+@media screen and (max-width: 650px) {
+  select {
+    margin: 0.1%;
+    width: 32%;
+    margin-bottom: 1%;
+  }
+}
+
 @media screen and (max-width: 500px) {
-	#time_selector {
-		background-color: red;
-	}
-}*/
+	select {
+    margin: 0.1%;
+    width: 32%;
+    margin-bottom: 1%;
+  }
+}

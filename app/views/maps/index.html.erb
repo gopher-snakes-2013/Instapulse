@@ -1,8 +1,8 @@
 <div class='main-container'>
     <div id='time_selector'>
       <form id="time_form">
-       <select name="speed" type="dropdown">
-        <option value="speed" disabled>Speed</option>
+       <select name="speed" id="speed" type="dropdown">
+        <option value="speed" disabled>SPEED</option>
          <option value="0.5">0.5</option>
          <option value="1">1</option>
          <option value="2">2</option>
@@ -14,7 +14,7 @@
        </select>
 
        <select name="start_time" type="dropdown">
-         <option value="start-time" disabled>Start Time</option>
+         <option value="start-time" disabled>START TIME</option>
          <option value="0000">00:00</option>
          <option value="0100">01:00</option>
          <option value="0200">02:00</option>
@@ -43,7 +43,7 @@
        </select>
 
        <select name="end_time" type="dropdown">
-         <option value="end-time" disabled>End Time</option>
+         <option value="end-time" disabled>END TIME</option>
          <option value="0000">00:00</option>
          <option value="0100">01:00</option>
          <option value="0200">02:00</option>
@@ -77,7 +77,12 @@
     <div id='map'></div>
 </div>
 
-<div id='feed-container'><div>
+<div id='feed-container'>
+    <div id='feed title'>
+        <h3>Click on photos you like to save them to this feed.</h3>
+
+    </div>
+<div>
 
 
 <div id='tooltip' class='hidden'></div>
