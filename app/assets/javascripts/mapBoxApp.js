@@ -8,7 +8,7 @@ TimeSelector = {
   initialize: function(){
     $('#time_form').on('submit', function(e){
       e.preventDefault()
-      $('#submit_button').css("display", "none")
+      $('#submit_button').css("visibility", "hidden")
       if (MapBuilder.mappedPoints){
         $.each(MapBuilder.mappedPoints, function(index, layer){
           MapBuilder.map.removeLayer(layer)
@@ -63,7 +63,7 @@ MapBuilder = {
   definePlaybackSpeed: function(speed){
     MapBuilder.playbackSpeed = ((1000.0 * speed) / 3600)
   },
-  maxLayers: 1000,
+  maxLayers: 300,
 
   createMap: function(){
     return L.mapbox.map('map', 'salarkhan.g7l7ga11', {zoomControl: false})
@@ -75,7 +75,6 @@ MapBuilder = {
     MapBuilder.mappedPoints = []
     MapBuilder.initializeMap(MapBuilder.arrayOfGeoJSONs, MapBuilder.maxLayers)
     MapBuilder.markerAddRemove(MapBuilder.arrayOfGeoJSONs)
-    // $('#submit_button').css("display", "inline")
   },
 
   initializeMap: function(arrayOfGeoJSONs, numToInitialize){
@@ -99,14 +98,22 @@ MapBuilder = {
     $.each(arrayOfGeoJSONs, function(index, photo){
       MapBuilder.createMarkerLayer(photo, (MapBuilder.maxLayers * MapBuilder.playbackSpeed)+(MapBuilder.playbackSpeed*index), true)
     })
-
   },
 
   removeMarkerLayer: function(){
     toRemove = MapBuilder.mappedPoints.shift()
     MapBuilder.map.removeLayer(toRemove)
+    MapBuilder.arrayOfGeoJSONs.shift()
+    if (MapBuilder.arrayOfGeoJSONs.length === 0){
+      MapBuilder.showSubmit()
+    }
+  },
+
+  showSubmit: function(){
+    $('#submit_button').css("visibility", "visible")
   }
 }
+
 
 MarkerModifier = {
 
