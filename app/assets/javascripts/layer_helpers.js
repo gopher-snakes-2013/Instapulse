@@ -10,7 +10,7 @@ LayerHelpers = {
       marker.bindPopup(popupContent, {
         closeButton: true
       });
-    }    
+    }
   },
 
   markerAddRemove: function(arrayOfGeoJSONs){

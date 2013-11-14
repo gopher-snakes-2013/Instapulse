@@ -61,6 +61,6 @@ FormHelpers = {
     $('#submit_button').removeAttr('disabled')
     $('#speed').removeAttr('disabled')
     $('#start_time').removeAttr('disabled')
-    $('#end_time').removeAttr('disabled')    
-  }  
+    $('#end_time').removeAttr('disabled')
+  }
 }
