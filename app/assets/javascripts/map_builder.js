@@ -40,22 +40,22 @@ MapBuilder = {
     $('#loading_icon').show()
     $.each(arrayOfGeoJSONs, function(index, photo){
       var timeout = FormHelpers.playbackSpeed() * (photo.properties.created_time - FormHelpers.mapStartTime())
-      var oneHour = FormHelpers.playbackSpeed() * 3600
-      setTimeout(MapBuilder.createMarkerLayerClosure(photo), timeout);
-      setTimeout(MapBuilder.removeMarkerLayer, timeout + oneHour);
+      setTimeout(MapBuilder.markerLayerClosure(photo), timeout);
     })
   },
   
   paused: false,
-  createMarkerLayerClosure: function(photo) {
+  markerLayerClosure: function(photo) {
     return function() {
+      var oneHour = FormHelpers.playbackSpeed() * 3600;
       if (MapBuilder.paused) {
-        setTimeout(MapBuilder.createMarkerLayerClosure(photo), 500)
+        setTimeout(MapBuilder.markerLayerClosure(photo), 500);
       } else {
         MapBuilder.createMarkerLayer(photo);
+        setTimeout(MapBuilder.removeMarkerLayer, oneHour);
       }
     }
-  },
+  }, 
 
   createMarkerLayer: function(photo) {
     $('#loading_icon').hide()
