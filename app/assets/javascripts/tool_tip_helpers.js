@@ -9,6 +9,7 @@ ToolTipHelper = {
   addToolTip: function(html){
     $(".pop-up").on('click', function(e){
       $("#feed-container").append(html)
+      $("#feed-title").remove()
     })
   },
   
