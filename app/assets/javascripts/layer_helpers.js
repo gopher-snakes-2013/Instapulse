@@ -14,8 +14,14 @@ LayerHelpers = {
   },
 
   updateTime: function(created_time){
-    timer = document.getElementById('timer')
-    timer.innerHTML = created_time
+    var timer = document.getElementById('timer')
+    var date = new Date(created_time*1000);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+    // debugger
+    var formattedTime = hours + ':' + minutes + ':' + seconds;
+    timer.innerHTML = formattedTime
   },
 
   markerAddRemove: function(arrayOfGeoJSONs){
