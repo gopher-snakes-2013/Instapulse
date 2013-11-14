@@ -20,10 +20,30 @@ module FormInterpreter
     tz
   end
 
-  def self.military_to_unix_time(military_time)
+  def self.military_to_unix_time(military_time, event)
     year = 2013
-    month = 10
-    day = 31
+
+    case event
+    when 'Halloween'
+      month = 10
+      day = 31
+    when 'Bay to Breakers'
+      month = 5
+      day = 19
+    when 'SF Giants'
+      year = 2012
+      month = 10
+      day = 28
+    when 'Folsom Street Fair'
+      month = 9
+      day = 29
+    when 'Hottest day of the year'
+      month = 5
+      day = 2
+    when 'Coldest day of the year'
+      month = 10
+      day = 31
+    end
 
     tz = self.tz_for_ymd_in_2013(year, month, day)
     t = Time.new(year, month, day, military_time[0,2].to_i, military_time[2,2].to_i, 0, tz)
@@ -31,10 +51,10 @@ module FormInterpreter
   end
 
 
-  def self.interpret_form(start_time, end_time, speed)
+  def self.interpret_form(start_time, end_time, speed, event)
     playback_attributes = {}
-    playback_attributes[:start_time] = military_to_unix_time(start_time)
-    playback_attributes[:end_time] = military_to_unix_time(end_time)
+    playback_attributes[:start_time] = military_to_unix_time(start_time, event)
+    playback_attributes[:end_time] = military_to_unix_time(end_time, event)
     return playback_attributes
   end
 end
