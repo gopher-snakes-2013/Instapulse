@@ -45,26 +45,17 @@ MapBuilder = {
       setTimeout(MapBuilder.removeMarkerLayer, timeout + oneHour);
     })
   },
-  
-  paused: false,
+
   createMarkerLayerClosure: function(photo) {
     return function() {
-      if (MapBuilder.paused) {
-        setTimeout(MapBuilder.createMarkerLayerClosure(photo), 500)
-      } else {
-        MapBuilder.createMarkerLayer(photo);
-      }
+      $('#loading_icon').hide()
+      FormHelpers.updateTime(photo.properties.created_time)
+
+      var newLayer = L.mapbox.markerLayer(photo)
+      newLayer.addTo(MapBuilder.map)
+      MapBuilder.mappedPoints.push(newLayer)
+      ToolTipHelper.bindToolTipForLayer(newLayer);
     }
-  },
-
-  createMarkerLayer: function(photo) {
-    $('#loading_icon').hide()
-    FormHelpers.updateTime(photo.properties.created_time)
-
-    var newLayer = L.mapbox.markerLayer(photo)
-    newLayer.addTo(MapBuilder.map)
-    MapBuilder.mappedPoints.push(newLayer)
-    ToolTipHelper.bindToolTipForLayer(newLayer);
   },
 
   removeMarkerLayer: function(){  
