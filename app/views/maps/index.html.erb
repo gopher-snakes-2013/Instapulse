@@ -1,19 +1,25 @@
 <div class='main-container'>
     <div id='time_selector'>
       <form id="time_form">
-       <select name="speed" id="speed" type="dropdown">
-        <option value="speed" disabled>SPEED</option>
-         <option value="0.5">0.5</option>
-         <option value="1">1</option>
-         <option value="2">2</option>
-         <option value="3" selected autofocus>3</option>
-         <option value="6">6</option>
-         <option value="8">8</option>
-         <option value"15">15</option>
-         <option value="30">30</option>
+
+        <select name="event" id="event" type="dropdown">
+        <option value="event" disabled>EVENT</option>
+         <option value="Halloween" selected autofocus>Halloween</option>
+         <option value="Bay to Breakers">Bay to Breakers</option>
+         <option value="SF Giants">SF Giants win the World Series</option>
+         <option value="Folsom Street Fair">Folsom Street Fair</option>
+         <option value="Hottest day of the year">Hottest day of the year</option>
+         <option value="Coldest day of the year">Coldest day of the year</option>
        </select>
 
-       <select name="start_time" type="dropdown">
+       <select name="speed" id="speed" type="dropdown">
+        <option value="speed" disabled>SPEED</option>
+         <option value="20">Slow</option>
+         <option value="10" selected autofocus>Medium</option>
+         <option value="5">Fast</option>
+       </select>
+
+       <select name="start_time" type="dropdown" id="start_time">
          <option value="start-time" disabled>START TIME</option>
          <option value="0000">00:00</option>
          <option value="0100">01:00</option>
@@ -37,12 +43,12 @@
          <option value="1900">19:00</option>
          <option value="2000">20:00</option>
          <option value="2100">21:00</option>
-         <option value="2200">21:00</option>
+         <option value="2200">22:00</option>
          <option value="2300">23:00</option>
          <option value="2400">24:00</option>
        </select>
 
-       <select name="end_time" type="dropdown">
+       <select name="end_time" type="dropdown" id="end_time">
          <option value="end-time" disabled>END TIME</option>
          <option value="0000">00:00</option>
          <option value="0100">01:00</option>
@@ -66,11 +72,12 @@
          <option value="1900">19:00</option>
          <option value="2000">20:00</option>
          <option value="2100">21:00</option>
-         <option value="2200" selected autofocus>21:00</option>
+         <option value="2200" selected autofocus>22:00</option>
          <option value="2300">23:00</option>
          <option value="2400">24:00</option>
        </select>
-       <input type='submit' class='button quiet' value='Start Playback' name='' />
+       <input type='submit' id ="submit_button" class='button quiet' value='Start Playback' name='' />
+    <!--    <input type='submit' id ="submit_button" class='button quiet' value='Pause Playback' name='' /> -->
      </form>
     </div>
 

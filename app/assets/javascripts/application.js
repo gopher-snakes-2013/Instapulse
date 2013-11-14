@@ -12,5 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require photos_to_geo_jsons
+//= require form_helpers
+//= require layer_helpers
+//= require tool_tip_helpers
+//= require test_data
+//= require map_builder
+//= require mapBoxApp
 //= require_tree .
-

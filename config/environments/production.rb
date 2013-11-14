@@ -61,12 +61,14 @@ Instapulse::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  config.assets.initialize_on_precompile = false
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   Instagram.configure do |config|
-    config.client_id = ENV["INSTAGRAM_ID"]
-    config.client_secret = ENV["INSTAGRAM_SECRET"]
+    config.client_id = ENV["INSTA_ID"]
+    config.client_secret = ENV["INSTA_SECRET"]
   end
 end
