@@ -17,7 +17,7 @@ MapBuilder = {
       url:"/maps",
       type: "GET",
       dataType: "json",
-      data: $('#time_form').serialize(),
+      data: $('#time_form').serialize()
     }).done(MapBuilder.placePhotosOnMap)
   },
 
