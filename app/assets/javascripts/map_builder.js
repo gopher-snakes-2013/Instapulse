@@ -26,9 +26,9 @@ MapBuilder = {
       $.each(MapBuilder.mappedPoints, function(index, layer){
         MapBuilder.map.removeLayer(layer)
       })
-    }    
+    }
   },
-  
+
   placePhotosOnMap: function(arrayOfPhotoJSONs){
     FormHelpers.disableForm()
     MapBuilder.arrayOfGeoJSONs = PhotosToGeoJSONs.convert(arrayOfPhotoJSONs)
