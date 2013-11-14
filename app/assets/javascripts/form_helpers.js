@@ -18,7 +18,7 @@ FormHelpers = {
         unixSelectedDate = 1380438000;
         break;
       case 'Hottest day of the year':
-        unixSelectedDate = 1383202800;
+        unixSelectedDate = 1384456189;
         break;
       case 'Coldest day of the year':
         unixSelectedDate = 1383202800;
@@ -61,6 +61,6 @@ FormHelpers = {
     $('#submit_button').removeAttr('disabled')
     $('#speed').removeAttr('disabled')
     $('#start_time').removeAttr('disabled')
-    $('#end_time').removeAttr('disabled')    
-  }  
+    $('#end_time').removeAttr('disabled')
+  }
 }
