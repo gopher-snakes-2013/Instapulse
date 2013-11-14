@@ -68,7 +68,7 @@ Instapulse::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   Instagram.configure do |config|
-    config.client_id = ENV["INSTAGRAM_ID"]
-    config.client_secret = ENV["INSTAGRAM_SECRET"]
+    config.client_id = ENV["INSTA_ID"]
+    config.client_secret = ENV["INSTA_SECRET"]
   end
 end
