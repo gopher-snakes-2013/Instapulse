@@ -5,11 +5,6 @@ PhotosToGeoJSONs = {
       geoPhoto = PhotosToGeoJSONs.convertPhoto(photoJSON)
       convertedPhotos.push(geoPhoto)
     })
-    // TODO-JW: this would also work
-    // for (var i in arrayOfJSONs) {
-    //   geoPhoto = PhotosToGeoJSONs.convertPhoto(arrayOfJSONs[i])
-    //   convertedPhotos.push(geoPhoto)
-    // }
     return convertedPhotos
   },
 
