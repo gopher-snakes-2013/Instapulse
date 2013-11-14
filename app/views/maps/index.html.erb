@@ -3,18 +3,14 @@
       <form id="time_form">
        <select name="speed" id="speed" type="dropdown">
         <option value="speed" disabled>SPEED</option>
-         <option value="0.5">0.5</option>
-         <option value="1">1</option>
-         <option value="2">2</option>
-         <option value="3" selected autofocus>3</option>
-         <option value="6">6</option>
-         <option value="8">8</option>
-         <option value"15">15</option>
-         <option value="30">30</option>
+         <option value="20">Slow</option>
+         <option value="10" selected autofocus>Medium</option>
+         <option value="5">Fast</option>
+
        </select>
 
 
-       <select name="start_time" type="dropdown">
+       <select name="start_time" type="dropdown" id="start_time">
          <option value="start-time" disabled>START TIME</option>
          <option value="0000">00:00</option>
          <option value="0100">01:00</option>
@@ -43,7 +39,7 @@
          <option value="2400">24:00</option>
        </select>
 
-       <select name="end_time" type="dropdown">
+       <select name="end_time" type="dropdown" id="end_time">
          <option value="end-time" disabled>END TIME</option>
          <option value="0000">00:00</option>
          <option value="0100">01:00</option>

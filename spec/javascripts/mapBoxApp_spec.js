@@ -32,7 +32,7 @@ describe('Converter', function () {
 
   describe('toGeoJSONFormat', function(){
     it("should return a GeoJSON when given a photo object", function(){
-      expect(Converter.toGeoJSONFormat(photo)).toEqual(photoGeoJSON);
+      expect(PhotosToGeoJSONs.convertPhoto(photo)).toEqual(photoGeoJSON);
     });
   });
 
@@ -44,7 +44,7 @@ describe('Converter', function () {
 
     it("returns an array of GeoJSONs when giben a collection of Photo objects", function() {
       spyOn(Converter, 'toGeoJSONFormat').andReturn(photoGeoJSON);
-      expect(Converter.getPhotoGeoJSONs(photoSet)).toEqual(arrayOfGeoJSONs);
+      expect(PhotosToGeoJSONs.convert(photoSet)).toEqual(arrayOfGeoJSONs);
     });
   });
 
@@ -52,7 +52,8 @@ describe('Converter', function () {
     it("returns a tuple of GeoJSON arrays for each JSON tuple supplied", function(){
       spyOn(Converter, 'getPhotoGeoJSONs').andReturn(arrayOfGeoJSONs);
       var individualTuple = [photoSet, photoSet];
-      expect(Converter.getTupleOfGeoJSONarrays(individualTuple)).toEqual(TupleOfGeoJSONarrays);
+      // TODO-JW: this is BORKEN
+      expect(PhotosToGeoJSONs.__borken__(individualTuple)).toEqual(TupleOfGeoJSONarrays);
     });
   });
 
@@ -60,7 +61,8 @@ describe('Converter', function () {
     it("returns a collection of GeoJSON tuples for each array of JSON tuples supplied", function(){
       spyOn(Converter, 'getTupleOfGeoJSONarrays').andReturn(TupleOfGeoJSONarrays);
       var arrayOfJSONTuples = [[photo, photo, photo],[photo, photo]];
-      expect(Converter.seperateTuples(arrayOfJSONTuples));
+      // TODO-JW: this is BORKEN
+      expect(PhotosToGeoJSONs.__borken__(arrayOfJSONTuples));
     });
   });
 
