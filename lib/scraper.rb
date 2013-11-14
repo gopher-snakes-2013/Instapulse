@@ -21,12 +21,12 @@ module Scraper
     array_of_time_windows.each do |time_window|
       array_of_media_JSONs = Instagram.media_search("37.766915","-122.419624", {distance: 5000, max_timestamp: time_window[1], min_timestamp: time_window[0]})
       collection_of_json_arrays << array_of_media_JSONs
-      sleep(4)
+      sleep(3)
 
       array_of_media_JSONs_right = Instagram.media_search("37.750235","-122.46668", {distance: 5000, max_timestamp: time_window[1], min_timestamp: time_window[0]})
 
         collection_of_json_arrays << array_of_media_JSONs_right unless collection_of_json_arrays.include?(array_of_media_JSONs_right)
-      sleep(4)
+      sleep(3)
 
     end
     return collection_of_json_arrays
