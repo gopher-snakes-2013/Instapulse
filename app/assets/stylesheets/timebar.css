@@ -11,6 +11,9 @@
   z-index: 2;
 }
 
+#timer{
+  margin-right: 30px;
+}
 select {
   background: none;
   background-color: rgba(0,0,0,.25);

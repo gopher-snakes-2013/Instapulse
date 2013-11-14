@@ -61,6 +61,13 @@ FormHelpers = {
     $('#submit_button').removeAttr('disabled')
     $('#speed').removeAttr('disabled')
     $('#start_time').removeAttr('disabled')
-    $('#end_time').removeAttr('disabled')
+    $('#end_time').removeAttr('disabled')    
+  },
+
+  updateTime: function(created_time){
+    var timer = document.getElementById('timer')
+    var date = new Date(created_time*1000); // JS can only create Date objects in milliseconds
+    var formattedTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    timer.innerHTML = formattedTime
   }
 }
