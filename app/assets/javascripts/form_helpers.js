@@ -23,6 +23,8 @@ FormHelpers = {
       case 'Coldest day of the year':
         unixSelectedDate = 1383202800;
         break;
+      default:
+        alert("Not a valid event!");
     }
     return unixSelectedDate
   },
