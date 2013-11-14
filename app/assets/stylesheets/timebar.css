@@ -26,12 +26,11 @@ select {
   -webkit-font-smoothing:antialiased;
   -webkit-appearance: none;
   text-indent: 40%;
-  text-transform:
 }
 
 .button.quiet {
   color: #61D6E5;
-  left: 2%;
+  /*left: 2%;*/
   font-size: 0.75em;
   font-weight: 700;
 }

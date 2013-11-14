@@ -12,7 +12,7 @@ class Photo < ActiveRecord::Base
 			photo_object["longitude"] = photo.longitude
 			photo_object["thumbnail_url"] = photo.thumbnail_url
 			photo_object["link_url"] = photo.link
-			photo_object["photo_caption"] = photo.caption[0..30].gsub(/\s\w+\s*$/,'...')
+			photo_object["photo_caption"] = photo.caption[0..30].gsub(/\s\w+\s*$/,'...') if photo.caption
 			output << photo_object
 		end
 		output

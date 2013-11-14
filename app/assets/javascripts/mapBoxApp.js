@@ -126,29 +126,30 @@ ToolTipModifier = {
       self.editToolTip(e)
       self.addToolTip()
     })
-    self.hideToolTip()
+    // self.hideToolTip()
   },
 
   editToolTip: function(e){
-    e.layer.unbindPopup();
+    // e.layer.unbindPopup();
     ToolTipModifier.feature = e.layer.feature;
     ToolTipModifier.info = '<div class="feed-photo">' + '<a href="' + ToolTipModifier.feature.properties.link_url + '">' + '<img src="' + ToolTipModifier.feature.properties.image + '"/>' + '</a>' + '<p>' + ToolTipModifier.feature.properties.caption + '</p>' + '</div>'
   },
 
   addToolTip: function(){
     $(".pop-up").on('click', function(){
+      $("#feed-title").remove()
       $("#feed-container" ).append(ToolTipModifier.info)
     })
   },
 
-  hideToolTip: function(){
-    MapBuilder.currentLayer.on('mouseout', function(e) {
-      $('#tooltip').fadeOut(300, function(){
-        e.layer.closePopup();
-        $('#tooltip').addClass('hidden')
-      })
-    });
-  }
+  // hideToolTip: function(){
+  //   MapBuilder.currentLayer.on('mouseout', function(e) {
+  //     $('#tooltip').fadeOut(300, function(){
+  //       e.layer.closePopup();
+  //       $('#tooltip').addClass('hidden')
+  //     })
+  //   });
+  // }
 }
 
 // geoJSON for testing
