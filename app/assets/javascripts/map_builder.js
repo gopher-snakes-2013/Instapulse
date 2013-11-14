@@ -1,4 +1,5 @@
 MapBuilder = {
+
   initialize: function() {
     this.map = this.createMap()
     this.map.on('layeradd', LayerHelpers.onLayerAdd)
@@ -36,3 +37,5 @@ MapBuilder = {
     LayerHelpers.markerAddRemove(MapBuilder.arrayOfGeoJSONs)
   }
 }
+
+MapBuilder.createMap()

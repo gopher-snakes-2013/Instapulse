@@ -38,6 +38,13 @@ select {
 #speed{
   text-indent: 50%}
 
+.fb-like{
+  position: absolute;
+  /*float: right;*/
+  bottom: 0px;
+  right: 0px;
+  }
+
 select[type=dropdown]:hover {
   color:white;
   background-color:rgba(0,0,0,.5);
