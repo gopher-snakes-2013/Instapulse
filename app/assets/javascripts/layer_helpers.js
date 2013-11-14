@@ -10,10 +10,16 @@ LayerHelpers = {
       marker.bindPopup(popupContent, {
         closeButton: true
       });
-    }    
+    }
+  },
+
+  updateTime: function(created_time){
+    timer = document.getElementById('timer')
+    timer.innerHTML = created_time
   },
 
   markerAddRemove: function(arrayOfGeoJSONs){
+    $('#loading_icon').removeClass('hidden')
     $.each(arrayOfGeoJSONs, function(index, photo){
       var timeout = FormHelpers.playbackSpeed() * (photo.properties.created_time - FormHelpers.mapStartTime())
       var oneHour = FormHelpers.playbackSpeed() * 3600
@@ -24,6 +30,9 @@ LayerHelpers = {
 
   createMarkerLayer: function(photo, timeout){
     setTimeout(function() {
+      $('#loading_icon').addClass('hidden')
+      LayerHelpers.updateTime(photo.properties.created_time)
+
       var newLayer = L.mapbox.markerLayer(photo)
       newLayer.addTo(MapBuilder.map)
       MapBuilder.mappedPoints.push(newLayer)
