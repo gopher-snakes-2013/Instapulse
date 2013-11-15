@@ -1,5 +1,3 @@
-CSS for pop-up tooltip when interacting with markers*/
-
 tooltip {
   position: absolute;
   background-color: #ecf0f1;
@@ -12,21 +10,9 @@ tooltip {
   width: 200px;
 
  }
-
-
  .hidden {
   display: none;
  }
-
-
-
-
-/* edit tooltip box*/
-/*
-  .leaflet-popup-content{
-    width: 100% !important;
-    margin: 0;
-  }*/
 
  .leaflet-popup-content-wrapper {
     background-color: transparent;
@@ -48,17 +34,4 @@ tooltip {
  .pop-up{
     bottom: 100px;
     box-shadow: 2px 2px 15px #000;
- }
-
-/*Might need for tooltips later*/
- /*.leaflet-popup-tip-container {
-  margin-bottom: 0px;
-  }
-*/
-
- /*.leaflet-popup-tip {
-    margin-bottom: 5em;
-    background-color: #ecf0f1;
-    box-shadow: 2px 2px 15px #000;
-    z-index: 100;
  }
