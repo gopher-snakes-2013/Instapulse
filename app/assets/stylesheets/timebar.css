@@ -63,12 +63,14 @@ input {
     width: 32%;
     margin-bottom: 1%;
   }
+
+
 }
 
 @media screen and (max-width: 500px) {
 	select {
     margin: 0.1%;
-    width: 32%;
+    width: 32px;
     margin-bottom: 1%;
   }
 }
