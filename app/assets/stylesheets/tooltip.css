@@ -16,11 +16,9 @@
 
  .leaflet-popup-content-wrapper {
     background-color: transparent;
-
     width: 185px;
     height: 168px;
  }
-
 
  a.leaflet-popup-close-button {
   color: white !important;
