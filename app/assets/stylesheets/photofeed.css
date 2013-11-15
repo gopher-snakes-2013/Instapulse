@@ -74,8 +74,11 @@
    margin: 0.625em 0.625em 0.625em 0.625em;
    background-color: #E0E1E0;
  }
+}
+
 
  @media screen and (max-width: 500px) {
+
   #feed-container {
     height: 100px;
     overflow: auto;
