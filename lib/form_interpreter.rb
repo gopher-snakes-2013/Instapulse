@@ -49,7 +49,7 @@ module FormInterpreter
   end
 
 
-  def self.interpret_form(start_time, end_time, event)
+  def self.interpret_form(start_time, end_time, speed, event)
     playback_attributes = {}
     playback_attributes[:start_time] = military_to_unix_time(start_time, event)
     playback_attributes[:end_time] = military_to_unix_time(end_time, event)
