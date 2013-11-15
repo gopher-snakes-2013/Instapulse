@@ -1,5 +1,3 @@
-#ryan!!
-
 module FormInterpreter
 
   def self.tz_for_ymd_in_2013(year, month, day)
@@ -51,7 +49,7 @@ module FormInterpreter
   end
 
 
-  def self.interpret_form(start_time, end_time, speed, event)
+  def self.interpret_form(start_time, end_time, event)
     playback_attributes = {}
     playback_attributes[:start_time] = military_to_unix_time(start_time, event)
     playback_attributes[:end_time] = military_to_unix_time(end_time, event)
