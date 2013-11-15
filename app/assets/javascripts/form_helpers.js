@@ -55,13 +55,15 @@ FormHelpers = {
     $('#speed').attr('disabled', 'disabled')
     $('#start_time').attr('disabled', 'disabled')
     $('#end_time').attr('disabled', 'disabled')
+    $('#event').attr('disabled', 'disabled')
   },
 
   enableForm: function() {
     $('#submit_button').removeAttr('disabled')
     $('#speed').removeAttr('disabled')
     $('#start_time').removeAttr('disabled')
-    $('#end_time').removeAttr('disabled')    
+    $('#end_time').removeAttr('disabled')
+    $('#event').removeAttr('disabled')    
   },
 
   updateTime: function(created_time){

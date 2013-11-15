@@ -2,11 +2,13 @@
   <div id='time_selector'>
     <form id="time_form">
 
-      <div id ="timer" class='button quiet'>00:00:00</div>
+      
+        <div id ="timer" class='button quiet'>00:00:00</div>
+   
 
       <select name="event" id="event" type="dropdown">
-        <option value="event" disabled>EVENT</option>
-        <option value="Halloween" selected autofocus>Halloween</option>
+        <option value="event" disabled selected autofocus>EVENT</option>
+        <option value="Halloween" >Halloween</option>
         <option value="Bay to Breakers">Bay to Breakers</option>
         <option value="SF Giants">SF Giants win the World Series</option>
         <option value="Folsom Street Fair">Folsom Street Fair</option>
@@ -15,14 +17,14 @@
       </select>
 
       <select name="speed" id="speed" type="dropdown">
-        <option value="speed" disabled>SPEED</option>
+        <option value="speed" disabled selected autofocus>SPEED</option>
         <option value="20">Slow</option>
-        <option value="10" selected autofocus>Medium</option>
+        <option value="10" >Medium</option>
         <option value="5">Fast</option>
       </select>
 
       <select name="start_time" type="dropdown" id="start_time">
-       <option value="start-time" disabled>START TIME</option>
+       <option value="start-time" disabled selected autofocus>START TIME</option>
        <option value="0000">00:00</option>
        <option value="0100">01:00</option>
        <option value="0200">02:00</option>
@@ -41,7 +43,7 @@
        <option value="1500">15:00</option>
        <option value="1600">16:00</option>
        <option value="1700">17:00</option>
-       <option value="1800" selected autofocus>18:00</option>
+       <option value="1800" >18:00</option>
        <option value="1900">19:00</option>
        <option value="2000">20:00</option>
        <option value="2100">21:00</option>
@@ -51,7 +53,7 @@
      </select>
 
        <select name="end_time" type="dropdown" id="end_time">
-         <option value="end-time" disabled>END TIME</option>
+         <option value="end-time" disabled selected autofocus>END TIME</option>
          <option value="0000">00:00</option>
          <option value="0100">01:00</option>
          <option value="0200">02:00</option>
@@ -74,7 +76,7 @@
          <option value="1900">19:00</option>
          <option value="2000">20:00</option>
          <option value="2100">21:00</option>
-         <option value="2200" selected autofocus>22:00</option>
+         <option value="2200">22:00</option>
          <option value="2300">23:00</option>
          <option value="2400">24:00</option>
        </select>
@@ -87,8 +89,8 @@
 
 <div id='feed-container'>
 
-  <div id='feed title'>
-    <h3>Click on photos you like to save them to this feed.</h3>
+  <div id='feed-title'>
+    <div>Click on the photos that you like to save them to your feed.</div>
   </div>
 </div>
 
