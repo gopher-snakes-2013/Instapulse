@@ -27,8 +27,8 @@ PhotosToGeoJSONs = {
           iconAnchor: [3,6],  // 3x6 pixels
           className: "ig-dot"
         },
-        pink_icon: {
-          iconUrl: "http://3.bp.blogspot.com/-EWiwSDU-oVs/T6O7xBc9L6I/AAAAAAAABKA/htr8B3sVeFc/s1600/favicon.png",
+        white_icon: {
+          iconUrl: "http://i.imgur.com/NMYn0KU.png",
           iconSize: [6,6],    // 6x6 pixels
           iconAnchor: [3,6],  // 3x6 pixels
           className: "ig-dot"

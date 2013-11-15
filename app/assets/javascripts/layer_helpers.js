@@ -6,8 +6,8 @@ LayerHelpers = {
   changeMarkerIcon: function(marker) {
     if(marker.feature){
 
-      if(marker.feature.properties.like_count > 30) {
-        marker.setIcon(L.icon(marker.feature.properties.pink_icon));
+      if(marker.feature.properties.like_count > 50) {
+        marker.setIcon(L.icon(marker.feature.properties.white_icon));
       } else {
         marker.setIcon(L.icon(marker.feature.properties.blue_icon));
       }
