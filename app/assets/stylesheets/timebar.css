@@ -12,7 +12,6 @@
 }
 
 #timer{
-  /*margin-right: 30px;*/
   padding-left: 2%;
   padding-right: 3%;
   text-align: center;
@@ -32,20 +31,13 @@ select {
   width: 10%;
   -webkit-font-smoothing:antialiased;
   -webkit-appearance: none;
-  /*text-indent: 40%;*/
 }
 
 .button.quiet {
   color: #61D6E5;
-  /*left: 2%;*/
   font-size: 0.80em;
   font-weight: 700;
 }
-
-#speed{
-  /*text-indent: 50%}*/
-}
-
 
 select[type=dropdown]:hover {
   color:white;
@@ -65,8 +57,6 @@ input {
     width: 32%;
     margin-bottom: 1%;
   }
-
-
 }
 
 @media screen and (max-width: 500px) {
