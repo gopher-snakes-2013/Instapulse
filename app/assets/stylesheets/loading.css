@@ -1,0 +1,9 @@
+#loading{
+  position: absolute;
+  margin: auto;
+  height: 100px;
+  width: 100px;
+  float: right;
+  background-color: red;
+  z-index: 3;
+}
