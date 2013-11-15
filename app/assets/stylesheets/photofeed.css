@@ -26,13 +26,13 @@
 #feed-title{
   color: #ecf0f1;
   padding: .20em;
-  margin-left: 1em;
+  margin-left: 0.7em;
   margin-right: 0.25em;
-  margin-top: 0.25em;
-  font-size: 2em;
+  margin-top: 0.50em;
+  font-size: 1.5em;
   line-height: 125%;
   letter-spacing: 2px;
-  width: 200px;
+  width: 19%;
   height: 150px;
   font-weight: 400;
 }
