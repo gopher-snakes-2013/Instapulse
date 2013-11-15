@@ -1,4 +1,3 @@
-
 describe('PhotosToGeoJSONs', function () {
   var photoJSON;
   var photoGeoJSON;
