@@ -35,10 +35,4 @@ describe Photo do
 	  end 
   end
 
-  context "create_tuples" do
-    it "should return an array of tuples of objects" do
-      photo
-      expect(Photo.create_tuples({:start_time => 0, :end_time => 30, :interval => 30})[0][1][0]).to include("latitude" => 2222.0)
-    end
-  end
 end

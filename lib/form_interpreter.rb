@@ -1,5 +1,3 @@
-#ryan!!
-
 module FormInterpreter
 
   def self.tz_for_ymd_in_2013(year, month, day)
