@@ -14,6 +14,6 @@ ToolTipHelper = {
   },
   
   buildFeedPhoto: function(feature){
-    return '<div class="feed-photo">' + '<a href="' + feature.properties.link_url + '">' + '<img src="' + feature.properties.image + '"/>' + '</a>' + '<p>' + feature.properties.caption + '</p>' + '</div>'
+    return '<div class="feed-photo">' + '<a href="' + feature.properties.link_url + '" target="_blank">' + '<img src="' + feature.properties.image + '"/>' + '</a>' + '<p>' + feature.properties.caption + '</p>' + '</div>'
   },
 }
