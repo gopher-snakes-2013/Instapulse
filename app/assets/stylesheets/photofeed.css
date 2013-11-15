@@ -16,7 +16,7 @@
 .feed-photo {
   display: block;
   width: 150px;
-  height: 170px;
+  height: 165px;
   padding: 0.5em;
   margin: 0.625em 0.625em 0.625em 0.625em;
   float: left;
@@ -32,8 +32,8 @@
   font-size: 1.5em;
   line-height: 125%;
   letter-spacing: 2px;
-  width: 19%;
-  height: 150px;
+  width: 30%;
+  height: 120px;
   font-weight: 400;
 }
 
@@ -43,7 +43,7 @@
   #feed-title{
 
     margin-left: 5%;
-    width: 60%;
+    width: 70%;
   }
 
   #feed-container {
@@ -77,11 +77,27 @@
 
  @media screen and (max-width: 500px) {
   #feed-container {
-    height: 175px;
+    height: 100px;
+    overflow: auto;
   }
 
   #feed-title{
-    font-size: 1.5em;
+    font-size: 1em;
+    white-space: normal;
+    height: 50;
   }
 
+  .feed-photo {
+  display: block;
+  width: 100px;
+  height: 100px;
+  padding: 0.5em;
+  margin: 0.625em 0.625em 0.625em 0.625em;
+  float: left;
+  background-color: #E0E1E0;
+  }
+
+  p {
+    display: none;
+  }
 }
