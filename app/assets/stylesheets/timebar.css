@@ -11,6 +11,9 @@
   z-index: 2;
 }
 
+#timer{
+  margin-right: 30px;
+}
 select {
   background: none;
   background-color: rgba(0,0,0,.25);
@@ -30,7 +33,7 @@ select {
 
 .button.quiet {
   color: #61D6E5;
-  left: 2%;
+  /*left: 2%;*/
   font-size: 0.75em;
   font-weight: 700;
 }

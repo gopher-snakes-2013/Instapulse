@@ -17,7 +17,7 @@ MapBuilder = {
       url:"/maps",
       type: "GET",
       dataType: "json",
-      data: $('#time_form').serialize(),
+      data: $('#time_form').serialize()
     }).done(MapBuilder.placePhotosOnMap)
   },
 
@@ -26,13 +26,43 @@ MapBuilder = {
       $.each(MapBuilder.mappedPoints, function(index, layer){
         MapBuilder.map.removeLayer(layer)
       })
-    }    
+    }
   },
-  
+
   placePhotosOnMap: function(arrayOfPhotoJSONs){
     FormHelpers.disableForm()
     MapBuilder.arrayOfGeoJSONs = PhotosToGeoJSONs.convert(arrayOfPhotoJSONs)
     MapBuilder.mappedPoints = []
-    LayerHelpers.markerAddRemove(MapBuilder.arrayOfGeoJSONs)
+    MapBuilder.markerAddRemove(MapBuilder.arrayOfGeoJSONs)
+  },
+
+  markerAddRemove: function(arrayOfGeoJSONs){
+    $('#loading_icon').show()
+    $.each(arrayOfGeoJSONs, function(index, photo){
+      var timeout = FormHelpers.playbackSpeed() * (photo.properties.created_time - FormHelpers.mapStartTime())
+      var oneHour = FormHelpers.playbackSpeed() * 3600
+      setTimeout(MapBuilder.createMarkerLayerClosure(photo), timeout);
+      setTimeout(MapBuilder.removeMarkerLayer, timeout + oneHour);
+    })
+  },
+
+  createMarkerLayerClosure: function(photo) {
+    return function() {
+      $('#loading_icon').hide()
+      FormHelpers.updateTime(photo.properties.created_time)
+
+      var newLayer = L.mapbox.markerLayer(photo)
+      newLayer.addTo(MapBuilder.map)
+      MapBuilder.mappedPoints.push(newLayer)
+      ToolTipHelper.bindToolTipForLayer(newLayer);
+    }
+  },
+
+  removeMarkerLayer: function(){  
+    var toRemove = MapBuilder.mappedPoints.shift()
+    MapBuilder.map.removeLayer(toRemove)
+    if (MapBuilder.mappedPoints.length === 0){
+      FormHelpers.enableForm()
+    }
   }
 }
