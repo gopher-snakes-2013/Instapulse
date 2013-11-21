@@ -12,6 +12,7 @@ MapBuilder = {
 
   render: function(e){
     e.preventDefault()
+    $('#loading_icon').show()
     MapBuilder.removeExtraLayers()
     $.ajax({
       url:"/maps",
@@ -37,7 +38,6 @@ MapBuilder = {
   },
 
   markerAddRemove: function(arrayOfGeoJSONs){
-    $('#loading_icon').show()
     $.each(arrayOfGeoJSONs, function(index, photo){
       var timeout = FormHelpers.playbackSpeed() * (photo.properties.created_time - FormHelpers.mapStartTime())
       var oneHour = FormHelpers.playbackSpeed() * 3600
@@ -58,7 +58,7 @@ MapBuilder = {
     }
   },
 
-  removeMarkerLayer: function(){  
+  removeMarkerLayer: function(){
     var toRemove = MapBuilder.mappedPoints.shift()
     MapBuilder.map.removeLayer(toRemove)
     if (MapBuilder.mappedPoints.length === 0){
