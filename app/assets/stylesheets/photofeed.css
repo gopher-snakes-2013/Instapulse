@@ -2,7 +2,8 @@
   color: white;
   font-family: 'Montserrat', sans-serif;
   line-height: 1em;
-  padding-bottom: 0.25em;
+  padding-bottom: 0.40em;
+  font-size: 0.90em;
 
 }
 
@@ -11,7 +12,7 @@
   margin: 1em;
   background-color: #1F1F1F;
   overflow: hidden;
-  padding: 0.40em;
+  padding: 0.60em;
   opacity: 50%;
   border-radius: .20em;
 }
