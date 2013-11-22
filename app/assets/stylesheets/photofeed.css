@@ -1,3 +1,21 @@
+.instapulse {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1em;
+  padding-bottom: 0.25em;
+
+}
+
+.social {
+  float: left;
+  margin: 1em;
+  background-color: #1F1F1F;
+  overflow: hidden;
+  padding: 0.40em;
+  opacity: 50%;
+  border-radius: .20em;
+}
+
 #feed-container {
   position: absolute ;
   bottom: 0px;
@@ -32,7 +50,7 @@
   font-size: 1.5em;
   line-height: 125%;
   letter-spacing: 2px;
-  width: 30%;
+  width: 350px;
   height: 120px;
   font-weight: 400;
 }
