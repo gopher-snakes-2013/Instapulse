@@ -1,28 +1,15 @@
-Citygram
-========
+#Citygram
 
 DBC Final Project: Instagram Heatmaps
 
+Team: [Juke](https://github.com/boblikesoup), [Ryan](https://github.com/ryanhedges), [Daniel](https://github.com/trostli), [Salar](https://github.com/salarkhan)
 
-by Juke, Ryan, Daniel, & Salar(sucks)
-
-
-
-
-MAP BOX
+Overview
 ------------------------------------------------------------------
-Create a map on Map Box  http://leafletjs.com/reference.html#map  <<< primary map creation resource
-var map = L.map('dom element id', {
-    center: [51.505, -0.09],
-    zoom: 13
-});
-------------------------------------------------------------------
-Overlay an image on the map  http://leafletjs.com/reference.html#map
-var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
-    imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
+An app that allows you to discover trends through Instagram photos over time and space in San Francisco
 
-L.imageOverlay(imageUrl, imageBounds).addTo(map);
+APIs
 ------------------------------------------------------------------
-Import a JSON and plot
-"Returns this map's TileJSON object which determines its tile source, zoom bounds and other metadata."
-var layer = L.mapbox.tileLayer('examples.map-20v6611k');  <<<< tileJSON object
+MapBox: Layer-based map. While beautiful, its treatment of markers as individual layers proved to be a major sticking point. We originally envisioned having all the data points (about 16 thousand of them) of a single day on the map--turns out MapBox can't handle 16 thousand layers.
+
+Instagram: Media search queries based on Lat/Long/Radius. Surprised us with easy it was to navigate the returned JSON.
