@@ -24,7 +24,7 @@
   background-color: #656562;
   border-radius: 4px 4px 0 0;
   width:97%;
-  height:21%;
+  height:23%;
   z-index: 2;
   padding: 0.3%;
   overflow:auto;
@@ -49,9 +49,9 @@
   margin-right: 0.25em;
   margin-top: 0.50em;
   font-size: 1.5em;
-  line-height: 125%;
-  letter-spacing: 2px;
-  width: 350px;
+  line-height: 120%;
+  letter-spacing: 1px;
+  width: 400px;
   height: 120px;
   font-weight: 400;
 }
